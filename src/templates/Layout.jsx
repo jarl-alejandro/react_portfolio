@@ -9,7 +9,7 @@ const Main = styled.main`
   padding: 5px;
   top: 3em;
   width: 100%;
-  height: 100%;
+  height: calc(100% -3em);
   transition: all 250ms;
 
   @media screen and (min-width: 960px) {

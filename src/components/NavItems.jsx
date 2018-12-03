@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import NavItem from './NavItem';
 
-const pages = ['/home', '/about', '/work'];
+const pages = ['/', '/about', '/work'];
 
 const Items = styled.div`
     display: flex

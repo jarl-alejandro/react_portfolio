@@ -1,9 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import {Link} from '@reach/router'
 import styled from 'styled-components';
 
 export default ({ path }) => {
-  const linkName = path.replace(/\//g, '');
+  const _path = path === '/' ? 'home' : path;
+  const linkName = _path.replace(/\//g, '');
 
   const icons = {
     home: 'home',
@@ -37,27 +38,24 @@ export default ({ path }) => {
      
      svg:first-child {
        opacity: 0;
-       transition: opacity 300ms ease-out;
+       transition: opacity 500ms ease-out;
       }
       
       &:after {
         opacity: 1;
-        transition: opacity 300ms ease-out;
+        transition: opacity 500ms ease-out;
       }
     }
 
-    @media screen and (min-width: 960px) {
-      // margin: 1em 0;
-    }
   `;
 
   return (
-    <NavLink
+    <Link
       exact
       to={path}
     // activeStyle={{ color: 'red' }}
     >
       <Icon linkName={linkName.toUpperCase()} data-uk-icon={icons[linkName]}></Icon>
-    </NavLink>
+    </Link>
   )
 }
