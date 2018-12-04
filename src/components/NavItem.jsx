@@ -51,7 +51,7 @@ export default ({ path }) => {
 
   return (
     <Link
-      exact
+      // exact
       to={path}
     // activeStyle={{ color: 'red' }}
     >

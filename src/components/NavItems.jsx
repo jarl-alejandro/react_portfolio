@@ -9,7 +9,6 @@ const Items = styled.div`
     display: flex
     justify-content: space-evenly;
     align-items: center;
-    // flex-grow: 0.2;
 
     @media screen and (min-width: 960px) {
       flex-grow: 0.1;
