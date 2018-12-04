@@ -2,7 +2,7 @@ import React from 'react';
 import Page from '../templates/Page';
 
 export default () => (
-  <Page title='About Me'>
+  <Page title='About Me' scroll>
     <h2>Past</h2>
     <p>First thing to know about me is I am a proud military veteran. For fourteen years I served in the United States Navy as a <a href="#dc" data-uk-toggle='target: #dc'>Damage Controlman</a>. For the uninitiated, a Damage Controlman is referred to as a shipboard firefighter, however, our jobs entail more than that. There is a strong focus on maintenance management, troubleshooting, and repair skills. Team building, and training are fundamental skill sets in the job description as well. My final year in service required more support to the repair side of our organization, from planning to execution. This is where I learned that I enjoyed the journey from inception to fruition of the creative process; leading to the next phase of my life.</p>
 

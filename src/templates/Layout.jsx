@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 
 const Main = styled.main`
-  box-sizing: border-box;
-  position: absolute;
+  position: fixed;
   // background: grey;
   width: 100%;
+  height: 100%;
   transition: all 250ms;
   
   @media screen and (min-width: 960px) {
