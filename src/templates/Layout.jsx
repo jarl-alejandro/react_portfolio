@@ -12,6 +12,7 @@ const Main = styled.main`
   @media screen and (min-width: 960px) {
     top: 0;
     left: 3em;
+    width: calc(100% - 3em);
     transition: all 250ms;
   }
 `;
