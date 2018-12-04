@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import Header from '../components/Header';
 
 const Main = styled.main`
-  position: fixed;
+  position: absolute;
   // background: grey;
   width: 100%;
   height: 100%;
