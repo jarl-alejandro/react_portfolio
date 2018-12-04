@@ -5,7 +5,7 @@ import Header from '../components/Header';
 const Main = styled.main`
   box-sizing: border-box;
   position: absolute;
-  background: grey;
+  // background: grey;
   width: 100%;
   transition: all 250ms;
   
@@ -19,7 +19,7 @@ const Main = styled.main`
 const Background = styled.div`
   width: 100vw;
   height: 100vh;
-  background: grey;
+  // background: grey;
 `;
 
 export default ({ children }) => (

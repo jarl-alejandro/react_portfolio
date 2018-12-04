@@ -72,7 +72,7 @@ export default () => {
   `;
 
   const Icon = styled.span`
-    color: white;
+    // color: white;
 
     &:hover {
       color: red;

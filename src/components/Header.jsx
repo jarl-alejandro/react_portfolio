@@ -12,8 +12,8 @@ const Nav = styled.nav`
   box-sizing: border-box;
   width: 100%;
   height: 3em;
-  background: black;
-  color: white;
+  background: white;
+  border: 1px solid grey;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -13,7 +13,7 @@ export default ({ path }) => {
   }
 
   const Icon = styled.span`
-    color: white;
+    // color: white;
     box-sizing: border-box;
 
     svg:first-child {
