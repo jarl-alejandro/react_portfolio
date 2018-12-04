@@ -7,7 +7,7 @@ import NavItems from './NavItems';
 
 const Nav = styled.nav`
   z-index: 2000;
-  position: absolute;
+  position: fixed;
   padding: 0 5px;
   box-sizing: border-box;
   width: 100%;

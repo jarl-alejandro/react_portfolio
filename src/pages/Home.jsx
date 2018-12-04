@@ -1,7 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Page from '../templates/Page';
 
 export default () => (
-  <div>
+  <Page>
     <h1>Hello World</h1>
-  </div>
+  </Page>
 )
