@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import posed, { PoseGroup } from 'react-pose';
 import { Router, Location } from '@reach/router'
 import 'uikit/dist/css/uikit.min.css';
+import '@fortawesome/fontawesome-free/css/all.css'
 
 import Layout from './templates/Layout';
 import Home from './pages/Home';

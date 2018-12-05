@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import Page from '../templates/Page';
 import projects from '../data/projects';
 
+import ProjectCard from '../components/ProjectCard';
+
 
 
 const Gallery = styled.section`
@@ -21,7 +23,7 @@ const SelectorView = styled.div`
   width: 100%;
 
   @media screen and (min-width: 960px) {
-    flex-grow: 1;
+    max-width: 25%;
   }
 `;
 
@@ -44,6 +46,10 @@ const Thumbnails = styled.div`
 
 const MainView = styled.div` 
   margin: 20px;
+
+  @media screen and (min-width: 960px) {
+    width: 75%;
+  }
 `;
 
 const Thumbnail = styled.img`
@@ -80,9 +86,8 @@ export default class extends Component {
       this.setState(({ _projects }) => ({ filteredProjects: _projects }));
   }
 
-  getMainImage = (e) => {
-    const { src, alt } = e.target;
-    this.setState({ onMain: { src, alt } });
+  getMainImage = (onMain) => {
+    this.setState({ onMain });
   }
 
   render = () => {
@@ -104,11 +109,11 @@ export default class extends Component {
               {tags.map(tag => <option key={tag}>{tag}</option>)}
             </select>
             <Thumbnails>
-              {filteredProjects.map(project => <Thumbnail key={project.name} src={project.image} alt={project.name} onClick={this.getMainImage} />)}
+              {filteredProjects.map(project => <Thumbnail key={project.name} src={project.image} alt={project.name} onClick={ _ => this.getMainImage(project)} />)}
             </Thumbnails>
           </SelectorView>
           <MainView>
-            {onMain && <img src={onMain.src} alt={onMain.alt} />}
+            {onMain ? <ProjectCard {...onMain} /> : <ProjectCard {...projects[0]} />}
           </MainView>
         </Gallery>
       </Page>
