@@ -63,7 +63,8 @@ export default class extends Component {
 
     this.state = {
       _projects: projects,
-      filteredProjects: projects
+      filteredProjects: projects,
+      onMain: null
     }
   }
 
@@ -79,9 +80,14 @@ export default class extends Component {
       this.setState(({ _projects }) => ({ filteredProjects: _projects }));
   }
 
+  getMainImage = (e) => {
+    const { src, alt } = e.target;
+    this.setState({ onMain: { src, alt } });
+  }
+
   render = () => {
 
-    const { filteredProjects, _projects } = this.state;
+    const { filteredProjects, _projects, onMain } = this.state;
 
     const tags = _projects
       .map(project => project.languages.concat(project.frameworks, project.utilities))
@@ -98,11 +104,11 @@ export default class extends Component {
               {tags.map(tag => <option key={tag}>{tag}</option>)}
             </select>
             <Thumbnails>
-              {filteredProjects.map(project => <Thumbnail key={project.name} src={project.image} alt={project.name} />)}
+              {filteredProjects.map(project => <Thumbnail key={project.name} src={project.image} alt={project.name} onClick={this.getMainImage} />)}
             </Thumbnails>
           </SelectorView>
           <MainView>
-            <img src={projects[0].image} alt="test" />
+            {onMain && <img src={onMain.src} alt={onMain.alt} />}
           </MainView>
         </Gallery>
       </Page>
