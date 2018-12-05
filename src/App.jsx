@@ -4,11 +4,15 @@ import { Router, Location } from '@reach/router'
 import 'uikit/dist/css/uikit.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 
+// Component imports
 import Layout from './templates/Layout';
 import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 
+/**
+ * Posed: Route transition setting
+ */
 const RouteContainer = posed.div({
   initial: {
     opacity: 0,
@@ -30,6 +34,10 @@ const RouteContainer = posed.div({
   }
 })
 
+/**
+ * Transitional router setup
+ * @param {Object} param0 Component props, extract children
+ */
 const PosedRouter = ({ children }) => (
   <Location>
     {({ location }) => (
@@ -44,6 +52,9 @@ const PosedRouter = ({ children }) => (
 
 class App extends Component {
 
+  /**
+   * Lifecycle: Setup uikit icons
+   */
   componentDidMount = () => {
     const uikit = require('uikit');
     const icons = require('uikit/dist/js/uikit-icons');
@@ -52,7 +63,9 @@ class App extends Component {
 
   render() {
     return (
+      // SAP framing
       <Layout>
+        {/* Transitional router */}
         <PosedRouter>
           <Home path='/' />
           <About path='/about' />

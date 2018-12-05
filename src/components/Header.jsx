@@ -35,8 +35,14 @@ const Logo = styled.img`
 export default () => (
   <header>
     <Nav>
+
+      {/* Logo */}
       <Logo src={logo} alt='Logo' />
+
+      {/* Navbar */}
       <NavItems />
+
+      {/* Social links */}
       <Social />
     </Nav>
   </header>

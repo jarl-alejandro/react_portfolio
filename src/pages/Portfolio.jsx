@@ -102,18 +102,53 @@ export default class extends Component {
 
     return (
       <Page title='Portfolio'>
+        {/* Portfolio page content */}
         <Gallery>
+
+          {/* Portfolio selection window*/}
           <SelectorView>
-            <select name="filter" id="filter" onChange={this.handleChange} defaultValue='All'>
+
+            {/* Portfolio filter selector */}
+            <select
+              name="filter"
+              id="filter"
+              onChange={this.handleChange}
+              defaultValue='All'
+            >
+              {/* Default: All projects visible */}
               <option value='' >All</option>
-              {tags.map(tag => <option key={tag}>{tag}</option>)}
+
+              {
+                // Options: List of skills and technologies used
+                tags.map(tag => <option key={tag}>{tag}</option>)
+              }
             </select>
+
+            {/* Project selector */}
             <Thumbnails>
-              {filteredProjects.map(project => <Thumbnail key={project.name} src={project.image} alt={project.name} onClick={ _ => this.getMainImage(project)} />)}
+              {
+                filteredProjects
+                  .map(
+                    project =>
+                      <Thumbnail
+                        key={project.name}
+                        src={project.image}
+                        alt={project.name}
+                        onClick={_ => this.getMainImage(project)}
+                      />
+                  )
+              }
             </Thumbnails>
           </SelectorView>
+
+          {/* Project view window */}
           <MainView>
-            {onMain ? <ProjectCard {...onMain} /> : <ProjectCard {...projects[0]} />}
+            {
+              // Is project selected
+              onMain
+                ? <ProjectCard {...onMain} />       // Selected project
+                : <ProjectCard {...projects[0]} />  // Default: First listed project
+            }
           </MainView>
         </Gallery>
       </Page>

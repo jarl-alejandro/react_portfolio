@@ -6,6 +6,7 @@ export default ({ path }) => {
   const _path = path === '/' ? 'home' : path;
   const linkName = _path.replace(/\//g, '');
 
+
   const icons = {
     home: 'home',
     about: 'user',
@@ -51,9 +52,7 @@ export default ({ path }) => {
 
   return (
     <Link
-      // exact
       to={path}
-    // activeStyle={{ color: 'red' }}
     >
       <Icon linkName={linkName.toUpperCase()} data-uk-icon={icons[linkName]}></Icon>
     </Link>

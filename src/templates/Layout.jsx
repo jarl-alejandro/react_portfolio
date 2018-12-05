@@ -24,8 +24,13 @@ const Background = styled.div`
 `;
 
 export default ({ children }) => (
+  // App backdrop
   <Background>
+
+    {/* App Header/Navbar */}
     <Header />
+
+    {/* App content window */}
     <Main>
       {children}
     </Main>

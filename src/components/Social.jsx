@@ -2,13 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 export default () => {
+
+  // Social username data
   const social_links = {
     email: 'rodrickbloomfield@yahoo.com',
     linkedin: 'rodrick-bloomfield-95a82793',
     github: 'bloom305'
   }
+
+
   const sites = Object.entries(social_links);
 
+  // Social mediums' base links
   const social = {
     email: {
       href: 'mailto:',
