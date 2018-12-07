@@ -4,6 +4,7 @@ import Page from '../templates/Page';
 import projects from '../data/projects';
 
 import ProjectCard from '../components/ProjectCard';
+import Dropdown from '../components/Dropdown';
 
 
 
@@ -99,6 +100,8 @@ export default class extends Component {
       .reduce((acc, project) => acc.concat(project), [])
       .reduce((acc, tag) => !acc.includes(tag) ? acc.concat(tag) : acc, [])
       .sort((a, b) => a > b);
+    
+    tags.unshift('');
 
     return (
       <Page title='Portfolio'>
@@ -107,22 +110,10 @@ export default class extends Component {
 
           {/* Portfolio selection window*/}
           <SelectorView>
+            <Dropdown tags={tags} handleChange={this.handleChange} />
 
             {/* Portfolio filter selector */}
-            <select
-              name="filter"
-              id="filter"
-              onChange={this.handleChange}
-              defaultValue='All'
-            >
-              {/* Default: All projects visible */}
-              <option value='' >All</option>
 
-              {
-                // Options: List of skills and technologies used
-                tags.map(tag => <option key={tag}>{tag}</option>)
-              }
-            </select>
 
             {/* Project selector */}
             <Thumbnails>
