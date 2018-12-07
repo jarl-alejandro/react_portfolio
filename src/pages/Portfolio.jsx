@@ -45,22 +45,23 @@ const Thumbnails = styled.div`
   }
 `
 
+
+const Thumbnail = styled.img`
+width: 50px;
+height: 50px;
+margin: 20px;
+
+@media screen and (min-width: 960px) {
+  width: 100px;
+  height: 100px;
+}
+`;
+
 const MainView = styled.div` 
   margin: 20px;
 
   @media screen and (min-width: 960px) {
     width: 75%;
-  }
-`;
-
-const Thumbnail = styled.img`
-  width: 50px;
-  height: 50px;
-  margin: 20px;
-
-  @media screen and (min-width: 960px) {
-    width: 100px;
-    height: 100px;
   }
 `;
 
@@ -110,9 +111,9 @@ export default class extends Component {
 
           {/* Portfolio selection window*/}
           <SelectorView>
-            <Dropdown tags={tags} handleChange={this.handleChange} />
 
             {/* Portfolio filter selector */}
+            <Dropdown tags={tags} handleChange={this.handleChange} />
 
 
             {/* Project selector */}
@@ -123,9 +124,12 @@ export default class extends Component {
                     project =>
                       <Thumbnail
                         key={project.name}
-                        src={project.image}
+                        data-src={project.image}
                         alt={project.name}
                         onClick={_ => this.getMainImage(project)}
+                        data-uk-img
+                        width='50'
+                        height='50'
                       />
                   )
               }
