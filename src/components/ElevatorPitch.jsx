@@ -4,10 +4,20 @@ import computer from '../images/computer.jpg';
 
 const Line = styled.h2`
   color: white;
+  // font-size: 1.25em;
+
+  @media screen and (min-width: 960px) {
+    // font-size: inherit;
+  }
 `;
 
-const Complete = styled.p`
+const Complete = styled.div`
   color: white;
+  font-size: 0.90em;
+
+  @media screen and (min-width: 960px) {
+    font-size: inherit;
+  }
 `;
 
 const Lead = styled.span`
@@ -41,7 +51,7 @@ export default class ElevatorPitch extends Component {
     super(props)
 
     this.state = {
-      done: false,
+      done: true,
       set: 0,
       sets: props.pitch.adLibs.length - 1
     }
@@ -191,7 +201,7 @@ export default class ElevatorPitch extends Component {
         <Hero data-src={computer} width='100%' height='100%' alt="Computer desk" data-uk-img />
         {
           done &&
-          <Complete className='uk-overlay uk-position-top-center'>
+          <Complete className='uk-overlay uk-overlay-primary uk-position-bottom-left uk-animation-slide-bottom'>
             <p>{this.pitch.complete}</p>
           </Complete>
         }

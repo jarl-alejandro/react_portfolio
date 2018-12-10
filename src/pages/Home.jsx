@@ -5,7 +5,7 @@ import Elevator from '../components/ElevatorPitch';
 import pitch from '../data/elevator'
 
 export default () => (
-  <Page title='Rodrick Bloomfield'>
+  <Page home>
     <Elevator pitch={pitch} />
   </Page>
 )

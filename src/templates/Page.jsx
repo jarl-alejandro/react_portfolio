@@ -2,15 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Section = styled.section`
-  padding: 4em 2em;
+  padding: ${({home}) => home ? '3em 0' : '3em 1em' };
   
   @media screen and (min-width: 960px) {
-    padding: 2em;
+    padding: ${({home}) => home ? '0' : '2' }em;
   }
 `;
 
-export default ({ children, title, scroll }) => (
-  <Section scroll={scroll}>
+export default ({ children, title, scroll, home }) => (
+  <Section scroll={scroll} home={home}>
       {title && <h1>{title}</h1>}
       {children}
   </Section>
