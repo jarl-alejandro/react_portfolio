@@ -104,14 +104,12 @@ export default class ElevatorPitch extends Component {
 
   cycleAdLibs = (ads, interval) => {
     const ad = this.adLib.current;  // Element to write to
-    let write = null;               // Used to clear interval
     let previous = '';
     let next = true;                // Track when to move to next word
     let idx = 0;
 
     // Start interval
     this.write = setInterval(() => {
-
       // Ready for next word
       if (next) {
 
@@ -182,7 +180,7 @@ export default class ElevatorPitch extends Component {
     }
   }
 
-  componentWillMount = () => {
+  componentWillUnmount = () => {
     clearInterval(this.write)
   }
 
