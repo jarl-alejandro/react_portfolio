@@ -51,7 +51,7 @@ export default class ElevatorPitch extends Component {
     super(props)
 
     this.state = {
-      done: true,
+      done: false,
       set: 0,
       sets: props.pitch.adLibs.length - 1
     }
@@ -172,7 +172,7 @@ export default class ElevatorPitch extends Component {
     setTimeout(() => {
       this.cycleAdLibs(ads, 100);
     }, 150 * leadPhrase.length);
-  }
+  };
 
   nextSet = () => {
     const { set, sets } = this.state;
@@ -188,7 +188,13 @@ export default class ElevatorPitch extends Component {
       // this.startAdLib(this.pitch.adLibs[next]);
       this.setState({ set: next, done: true });
     }
-  }
+  };
+
+  restartAdLib = () => {
+    this.setState({ done: false, set: 0 }, () => {
+      this.startAdLib(this.pitch.adLibs[this.state.set]);
+    })
+  };
 
   componentWillUnmount = () => {
     clearInterval(this.write)
@@ -201,9 +207,12 @@ export default class ElevatorPitch extends Component {
         <Hero data-src={computer} width='100%' height='100%' alt="Computer desk" data-uk-img />
         {
           done &&
-          <Complete className='uk-overlay uk-overlay-primary uk-position-bottom-left uk-animation-slide-bottom'>
-            <p>{this.pitch.complete}</p>
-          </Complete>
+          <>
+            <Complete className='uk-overlay uk-overlay-primary uk-position-bottom-left uk-animation-slide-bottom'>
+              <p>{this.pitch.complete}</p>
+            </Complete>
+            <button className='uk-position-bottom-right uk-padding-small uk-animation-slide-right' data-uk-icon='refresh' onClick={this.restartAdLib}></button>
+          </>
         }
 
         {
