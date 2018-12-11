@@ -2,11 +2,11 @@ import React from 'react';
 import Page from '../templates/Page'
 import projects from '../data/projects'
 
-const SlideShowItem = ({ name, description, for: _for, image }) => {
+const SlideShowItem = ({ name, description, for: _for, image, link }) => {
 
   return (
     <li>
-      <a>
+      <a href={link}>
         <div className='uk-position-cover uk-position-medium' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
           <img className='uk-position-center uk-padding-large' src={image} alt={name} data-uk-cover />
         </div>
@@ -39,8 +39,8 @@ export default () => {
           </ul>
 
           {/* Slideshow Nav */}
-          <a className='uk-position-center-left uk-position-small uk-hidden-hover' href="#" data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></a>
-          <a className='uk-position-center-right uk-position-small uk-hidden-hover' href="#" data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></a>
+          <button className='uk-position-center-left uk-position-small uk-hidden-hover' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></button>
+          <button className='uk-position-center-right uk-position-small uk-hidden-hover' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></button>
 
           <ul className='uk-slideshow-nav uk-dotnav uk-flex-center uk-margin'></ul>
         </div>
