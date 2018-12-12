@@ -101,7 +101,7 @@ export default () => {
 
   return (
     <Page>
-      <h2 className='uk-heading-line'>Featured Projects</h2>
+      <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
       <div data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
         <div className='uk-position-relative uk-padding uk-margin-remove'>
