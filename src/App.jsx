@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import posed, { PoseGroup } from 'react-pose';
-import { Router, Location } from '@reach/router'
+import { Router, Location } from '@reach/router';
+import { Helmet } from 'react-helmet';
 import 'uikit/dist/css/uikit.min.css';
 import '@fortawesome/fontawesome-free/css/all.css'
 
@@ -40,13 +41,23 @@ const RouteContainer = posed.div({
  */
 const PosedRouter = ({ children }) => (
   <Location>
-    {({ location }) => (
-      <PoseGroup preEnterPose='initial'>
-        <RouteContainer key={location.key || 'test'}>
-          <Router location={location}>{children}</Router>
-        </RouteContainer>
-      </PoseGroup>
-    )}
+    {({ location }) => {
+
+      const pathname = location.pathname.replace(/\//, '').replace(/^./, (match) => match.toUpperCase());
+
+      return (
+        <>
+          <Helmet>
+            <title>{pathname ? `${pathname} | ` : ''}Rodrick Bloomfield</title>
+          </Helmet>
+          <PoseGroup preEnterPose='initial'>
+            <RouteContainer key={location.key || 'test'}>
+              <Router location={location}>{children}</Router>
+            </RouteContainer>
+          </PoseGroup>
+        </>
+      )
+    }}
   </Location>
 )
 

@@ -1,17 +1,14 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled from 'styled-components';
 
 import Page from '../templates/Page'
 import projects from '../data/projects'
 
-const SlideShowItem = ({ name, description, for: _for, image, link }) => {
+const SlideShowItem = ({ name, description, for: _for, image, link, repo }) => {
 
   const Img = styled.img`
     width: 100%;
     height: 100%;
-  `;
-
-  const Overlay = styled.div`
   `;
 
   const ProjectName = styled.h3`
@@ -31,18 +28,41 @@ const SlideShowItem = ({ name, description, for: _for, image, link }) => {
     }
   `;
 
+  const Overlay = styled.div`
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      opacity: 0;
+      transition: opacity 500ms ease-out;
+
+      &:hover {
+        opacity: 1;
+        transition: opacity 500ms ease-in;
+      }
+  `;
+
   return (
     <li>
-      <a href={link}>
-        <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
-          <Img src={image} alt={name} />
+      <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
+        <Img src={image} alt={name} />
+      </div>
+      <div className='uk-overlay uk-overlay-primary uk-position-bottom uk-text-justify uk-transition-slide-bottom uk-padding-small'>
+        <ProjectName className='uk-margin-remove'>{name}</ProjectName>
+        <Meta className=''>{description}</Meta>
+        <Meta className='uk-text-right uk-margin-small-top'>{_for}</Meta>
+      </div>
+      <Overlay className='uk-overlay uk-overlay-primary uk-position-cover'>
+        <div data-uk-grid>
+          <a href={link}>
+            <p className='uk-icon-button' data-uk-icon='icon: world; ratio: 2'></p>
+            <p>Site</p>
+          </a>
+          <a href={repo}>
+            <p className='uk-icon-button'  data-uk-icon='icon: code; ratio: 2'></p>
+            <p>Repo</p>
+          </a>
         </div>
-        <Overlay className='uk-overlay uk-overlay-primary uk-position-bottom uk-text-justify uk-transition-slide-bottom uk-padding-small'>
-          <ProjectName className='uk-margin-remove'>{name}</ProjectName>
-          <Meta className=''>{description}</Meta>
-          <Meta className='uk-text-right uk-margin-small-top'>{_for}</Meta>
-        </Overlay>
-      </a>
+      </Overlay>
     </li>
   );
 }
@@ -53,47 +73,13 @@ export default () => {
 
   const featuredProjects = projects.filter(project => project.featured);
 
-  const blinkerPrev = keyframes`
-  from{
-    opacity: 0;
-    left: 2em;
-  } 
-  
-  50% {
-    opacity: 0.5;
-    left: 1em;
-  }
-  
-  to {
-    opacity: 1;
-    left: inherit;
-  }
-  `;
-
-  const blinkerNext = keyframes`
-    from{
-      opacity: 0;
-      right: 2em;
-    } 
-    
-    50% {
-      opacity: 0.5;
-      right: 1em;
-    }
-    
-    to {
-      opacity: 1;
-      right: inherit;
-    }
-  `;
-
   const SlideNav = styled.button`
     opacity: 0.2;
+    transition: all 450ms ease-out;
     
     &:hover {
       opacity: 1;
       color: black;
-      animation: ${({ direction }) => direction === 'previous' ? blinkerPrev : blinkerNext} 500ms ease-out 1;
       transform: translate(${({ direction }) => direction === 'previous' ? '' : '-'}0.25em, -2.5em) scale(1.5);
       transition: all 450ms ease-in;
     }
