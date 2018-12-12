@@ -43,7 +43,7 @@ const Blinker = styled.span`
 
 const Hero = styled.img`
   width: 100%;
-  height: 100%;
+  height: 80vh;
 `;
 
 export default class ElevatorPitch extends Component {

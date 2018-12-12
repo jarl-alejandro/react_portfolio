@@ -32,7 +32,7 @@ const SlideShowItem = ({ name, description, for: _for, image, link }) => {
   `;
 
   return (
-    <li style={{ height: '100%' }}>
+    <li>
       <a href={link}>
         <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
           <Img src={image} alt={name} />
@@ -103,7 +103,7 @@ export default () => {
     <Page>
       <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
-      <div data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
+      <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
         <div className='uk-position-relative uk-padding uk-margin-remove'>
 
           {/* Slide show list */}
