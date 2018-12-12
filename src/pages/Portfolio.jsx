@@ -61,7 +61,7 @@ const MainView = styled.div`
   margin: 20px;
 
   @media screen and (min-width: 960px) {
-    width: 75%;
+    width: 50%;
   }
 `;
 
