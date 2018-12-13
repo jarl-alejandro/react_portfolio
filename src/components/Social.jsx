@@ -62,25 +62,27 @@ export default () => {
   }
 
   const Items = styled.div`
+    height: 100%;
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
-
-    @media screen and (min-width: 960px) {
-      flex-direction: column;
-    }
-  `
+    height: 3em;
+    `
 
   const Anchor = styled.a`
-    display: block;
     padding: 2px;
-  `;
+    `;
 
   const Icon = styled.span`
     // color: white;
+    transition: transform 500ms linear 500ms;
 
     &:hover {
       color: red;
+    }
+    
+    @media screen and (min-width: 960px) {
+      transform: rotate(-90deg);
+      transition: transform 500ms linear 500ms;
     }
   `;
 

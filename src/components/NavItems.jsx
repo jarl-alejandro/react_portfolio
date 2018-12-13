@@ -6,14 +6,10 @@ import NavItem from './NavItem';
 const pages = ['/', '/about', '/work'];
 
 const Items = styled.div`
-    display: flex
-    justify-content: space-evenly;
+    height: 100%;
+    display: flex;
     align-items: center;
 
-    @media screen and (min-width: 960px) {
-      flex-grow: 0.1;
-      flex-direction: column;
-    }
   `
 
 export default () => (

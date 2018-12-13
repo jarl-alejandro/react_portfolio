@@ -10,26 +10,34 @@ const Nav = styled.nav`
   position: fixed;
   padding: 0 5px;
   box-sizing: border-box;
-  width: 100%;
-  height: 3em;
   background: white;
   border: 1px solid grey;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: all 250ms ease-in;
+  height: 3em;
+
+  transform-origin: left bottom;
+  width: 100%;
+  transition: all 500ms ease-in;
 
   @media screen and (min-width: 960px) {
-    height: 100%;
-    width: 3em;
-    padding: 5px 0;
-    flex-direction: column;
+    width: 100vh;
+    transform-origin: left bottom;
+    transform: translate(0, -3em) rotate(90deg);
+    transition: all 500ms ease-in;
   }
 `
 
 const Logo = styled.img`
   height: 3em;
   width: 3em;
+  transition: all 500ms linear 500ms;
+
+  @media screen and (min-width: 960px) {
+    transform: rotate(-90deg);
+    transition: all 500ms linear 500ms;
+  }
 `
 
 export default () => (

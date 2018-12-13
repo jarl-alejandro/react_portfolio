@@ -16,12 +16,12 @@ export default ({ path }) => {
   const Icon = styled.span`
     // color: white;
     box-sizing: border-box;
-
+    text-align: center;
+    margin-top: 0.5em;
+    transition: transform 500ms linear 500ms;
+    
     svg:first-child {
       transform: scale(1.25);
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
     }
 
     &::after {
@@ -29,8 +29,7 @@ export default ({ path }) => {
       display:  block;
       font-size: 0.75em;
       position: relative;
-      bottom: 0.5em;
-      text-align: center;
+      bottom: 0.75em;
       opacity: 0;
     }
 
@@ -46,6 +45,11 @@ export default ({ path }) => {
         opacity: 1;
         transition: opacity 500ms ease-out;
       }
+    }
+
+    @media screen and (min-width: 960px) {
+      transform: rotate(-90deg);
+      transition: transform 500ms linear 500ms;
     }
 
   `;

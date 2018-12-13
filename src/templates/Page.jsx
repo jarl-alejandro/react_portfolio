@@ -3,9 +3,11 @@ import styled from 'styled-components';
 
 const Section = styled.section`
   padding: ${({home}) => home ? '3em 0' : '3em 1em' };
+  transition: padding 500ms ease-in;
   
   @media screen and (min-width: 960px) {
     padding: ${({home}) => home ? '2em 0' : '2em' };
+    transition: padding 500ms ease-in;
   }
 `;
 
