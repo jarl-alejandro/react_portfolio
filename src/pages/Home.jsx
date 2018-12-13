@@ -6,7 +6,7 @@ import pitch from '../data/elevator'
 import Featured from '../components/Featured';
 
 export default () => (
-  <Page home>
+  <Page home scroll>
     <h2 className='uk-heading-line uk-text-center'><span>Getting To Know Me</span></h2>
     <Elevator pitch={pitch} />
     <Featured />

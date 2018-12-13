@@ -11,29 +11,7 @@ import Home from './pages/Home';
 import About from './pages/About';
 import Portfolio from './pages/Portfolio';
 
-/**
- * Posed: Route transition setting
- */
-const RouteContainer = posed.div({
-  initial: {
-    opacity: 0,
-    x: '-100%'
-  },
-  enter: {
-    opacity: 1,
-    x: 0,
-    transition: {
-      duration: 500
-    }
-  },
-  exit: {
-    opacity: 0,
-    x: '100%',
-    transition: {
-      duration: 500
-    }
-  }
-})
+
 
 /**
  * Transitional router setup
@@ -44,6 +22,42 @@ const PosedRouter = ({ children }) => (
     {({ location }) => {
 
       const pathname = location.pathname.replace(/\//, '').replace(/^./, (match) => match.toUpperCase());
+  
+      const isLargeScreen = () => window.innerWidth > 960;
+
+      const RouteContainer = posed.div({
+        initial: {
+          opacity: 0.2,
+          x: isLargeScreen() ? '-46%' : '0%',
+          y: isLargeScreen() ? '0%' : '-46%',
+          rotateX: isLargeScreen() ? '120deg' : '0deg',
+          rotateY: isLargeScreen() ? '0deg' : '120deg',
+          scale: 0
+        },
+        enter: {
+          opacity: 1,
+          x: '0%',
+          y: '0%',
+          rotateX: 0,
+          rotateY: 0,
+          scale: 1,
+          transition: {
+            delay: 500,
+            duration: 500
+          }
+        },
+        exit: {
+          opacity: 0.2,
+          x: isLargeScreen() ? '-46%' : '0%',
+          y: isLargeScreen() ? '0%' : '-46%',
+          rotateX: isLargeScreen() ? '120deg' : '0deg',
+          rotateY: isLargeScreen() ? '0deg' : '120deg',
+          scale: 0,
+          transition: {
+            duration: 500
+          }
+        }
+      })
 
       return (
         <>
