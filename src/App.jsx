@@ -23,7 +23,7 @@ const PosedRouter = ({ children }) => (
 
       const pathname = location.pathname.replace(/\//, '').replace(/^./, (match) => match.toUpperCase());
   
-      const isLargeScreen = () => window.innerWidth > 960;
+      const isLargeScreen = () => window.innerWidth >= 960;
 
       const RouteContainer = posed.div({
         initial: {

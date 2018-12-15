@@ -28,12 +28,18 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
             {/* Site link */}
             {link && (
               <div data-uk-lightbox>
-                <a className='uk-icon-button uk-margin-small-right' data-uk-icon='laptop' href={link} data-caption={description} data-type='iframe' data-alt={name} > </a>
+                <a className='uk-margin-small-right uk-flex uk-flex-column uk-link-text'  href={link} data-caption={description} data-type='iframe' data-alt={name} >
+                  <span className='uk-icon-button' data-uk-icon='world'></span>
+                  <span className='uk-text-center uk-text-meta'>Site</span>
+                </a>
               </div>
             )}
 
             {/* Github repo link */}
-            <a className='uk-icon-button' data-uk-icon='github' href={repo} > </a>
+            <a className='uk-flex uk-flex-column uk-link-text' href={repo} >
+              <span className='uk-icon-button' data-uk-icon='github'></span>
+              <span className='uk-text-center uk-text-meta'>Repo</span>
+            </a>
           </div>
         </div>
       </div>

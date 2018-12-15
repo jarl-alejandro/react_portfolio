@@ -32,6 +32,7 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo }) => {
       display: flex;
       justify-content: center;
       align-items: center;
+      text-align: center;
       opacity: 0;
       transition: opacity 500ms ease-out;
 
