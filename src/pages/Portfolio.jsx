@@ -49,7 +49,8 @@ const Thumbnails = styled.div`
 const Thumbnail = styled.img`
 width: 50px;
 height: 50px;
-margin: 20px;
+margin: 1em;
+border-radius: 10%;
 
 @media screen and (min-width: 960px) {
   width: 100px;
@@ -124,7 +125,7 @@ export default class extends Component {
                     project =>
                       <Thumbnail
                         key={project.name}
-                        data-src={project.image}
+                        data-src={project.thumbnail ? project.thumbnail : project.image}
                         alt={project.name}
                         onClick={_ => this.getMainImage(project)}
                         data-uk-img

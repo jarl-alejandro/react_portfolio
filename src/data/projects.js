@@ -1,25 +1,15 @@
-import map from '../images/map.png';
-import reads from '../images/myReads.svg'
-import restaurant from '../images/restaurant.png';
-import arcade from '../images/arcade.png';
-import memory from '../images/memory.png';
-import portfolio from '../images/Portfolio.png';
-import clock from '../images/clock.svg';
-import calculator from '../images/calc.svg';
-import todo from '../images/todo2.svg';
-import pixel from '../images/pixel.svg';
-import twitch from '../images/twitch.svg';
-import wiki from '../images/wiki.svg';
-import resume from '../images/eResume.png';
-import senior from '../images/RARA_UML.png';
-import tribute from '../images/Tribute_Page.png';
+
+
+
+const getImage = (folder, name, ext) => require(`../images/${folder}/${name ? name :  folder}.${ext}`);
 
 const projects = [
   {
       featured: true,
       date: "2018-10-01",
       name: "Location Guide",
-      image: map,
+      thumbnail: getImage('map', 'map_thumb', 'png'),
+      image: getImage('map', 'map', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "React based location finder web app created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-Neighborhood_Map_App-/",
@@ -41,7 +31,8 @@ const projects = [
       featured: true,
       date: "2018-07-13",
       name: "Book Tracker",
-      image: reads,
+      image: getImage('myReads', null, 'svg'),
+      thumbnail: getImage('myReads', 'myReads_thumb', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "React based book tracking web app created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-MyRead",
@@ -60,7 +51,8 @@ const projects = [
       featured: false,
       date: "2018-06-22",
       name: "Restaurant Reviews",
-      image: restaurant,
+      image: getImage('restaurant', null, 'png'),
+      thumbnail: getImage('restaurant', 'restaurant_thumb', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "A responsive, accessible, and offline first restaurant review webpage created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-RestaurantReview",
@@ -86,7 +78,8 @@ const projects = [
       featured: false,
       date: "2018-05-23",
       name: "Arcade Game Clone",
-      image: arcade,
+      image: getImage('arcade', null, 'png'),
+      thumbnail: getImage('arcade', 'arcade_thumb', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "Frogger clone created for Udacity's Front End Developer Nano-degree.",
       repo: "https://github.com/bloom305/FEND-ArcadeGame",
@@ -109,7 +102,8 @@ const projects = [
       featured: false,
       date: "2018-05-14",
       name: "Memory Game",
-      image: memory,
+      image: getImage('memory', null, 'png'),
+      thumbnail: getImage('memory', 'memory_thumb', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "Memory game application created for Udacity Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-MemoryGame",
@@ -132,7 +126,8 @@ const projects = [
       featured: false,
       date: "2018-05-07",
       name: "Portfolio",
-      image: portfolio,
+      image: getImage('portfolio', null, 'png'),
+      thumbnail: getImage('portfolio', 'portfolio_thumb', 'png'),
       for: "Udacity's Front-End Nanodegree",
       description: "Single page portfolio created for Udacity Front End Developer Nano-degree.",
       repo: "https://github.com/bloom305/FEND-Portfolio",
@@ -155,7 +150,8 @@ const projects = [
       featured: true,
       date: "2018-04-17",
       name: "Pomodoro Clock",
-      image: clock,
+      image: getImage('clock', null, 'svg'),
+      thumbnail: getImage('clock', 'clock_thumb', 'png'),
       for: "Free Code Camp",
       description: "A javascript based clock for tracking work and break durations. Developed for freecodecamp.com advanced front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
@@ -175,7 +171,8 @@ const projects = [
       featured: true,
       date: "2018-04-10",
       name: "Calculator",
-      image: calculator,
+      image: getImage('calculator', null, 'svg'),
+      thumbnail: getImage('calculator', 'calculator_thumb', 'png'),
       for: "Free Code Camp",
       description: "A javascript based usable calculator. Developed for freecodecamp.com advanced front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
@@ -196,7 +193,8 @@ const projects = [
       featured: false,
       date: "2018-04-06",
       name: "Todo List",
-      image: todo,
+      image: getImage('todo', null, 'svg'),
+      thumbnail: getImage('todo', 'todo_thumb', 'png'),
       for: "Learning/Training AngularJS",
       description: "Todo list created for a CodeBuddies training session on AngularJS.",
       repo: "https://github.com/bloom305/Todo_List",
@@ -217,7 +215,8 @@ const projects = [
       featured: false,
       date: "2018-03-15",
       name: "Pixel Art",
-      image: pixel,
+      image: getImage('pixel', null, 'svg'),
+      thumbnail: getImage('pixel', 'pixel_thumb', 'png'),
       for: "Udacity Grow With Google Schlorship Challenge",
       description: "Pixel art drawer project created for Grow with Google Scholarship Challenge.",
       repo: "https://github.com/bloom305/pixeProject_GWG",
@@ -238,7 +237,8 @@ const projects = [
       featured: false,
       date: "2018-02-22",
       name: "Twitch Viewer",
-      image: twitch,
+      image: getImage('twitch', null, 'svg'),
+      thumbnail: getImage('twitch', 'twitch_thumb', 'png'),
       for: "Free Code Camp",
       description: "A page to display Twitch.tv channel information using Twitch API. Developed for freecodecamp.com intermediate front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
@@ -260,7 +260,8 @@ const projects = [
       featured: false,
       date: "2018-02-14",
       name: "Wiki Viewer",
-      image: wiki,
+      image: getImage('wiki', null, 'svg'),
+      thumbnail: getImage('wiki', 'wiki_thumb', 'png'),
       for: "Free Code Camp",
       description: "A page that gathered information via Wikipedia API. Developed for freecodecamp.com intermediate front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
@@ -283,7 +284,8 @@ const projects = [
       featured: false,
       date: "2018-02-07",
       name: "E-Resume",
-      image: resume,
+      image: getImage('resume', null, 'png'),
+      thumbnail: getImage('resume', 'resume_thumb', 'png'),
       for: "Learning AngularJS",
       description: "An editable resume using AngularJS and styled with W3CSS.",
       repo: "https://github.com/bloom305/E-Resume_template",
@@ -305,7 +307,8 @@ const projects = [
       featured: false,
       date: "2017-10-22",
       name: "RARA Asset Manager",
-      image: senior,
+      image: getImage('senior', 'RARA_UML', 'png'),
+      thumbnail: getImage('senior', 'senior_thumb', 'png'),
       for: "Senior Project",
       description: "Asset management device developed for B.S. in Electronic Engineering Technology senior project at DeVry University.",
       repo: "https://github.com/bloom305/Senior_Project",
@@ -328,7 +331,8 @@ const projects = [
       featured: false,
       date: "2017-08-26",
       name: "Tribute Page",
-      image: tribute,
+      image: getImage('tribute', null, 'png'),
+      thumbnail: getImage('tribute', 'tribute_thumb', 'png'),
       for: "Free Code Camp",
       description: "A tribute page dedicated to Anthony Bourdain, created for freecodecamp.com basic front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",

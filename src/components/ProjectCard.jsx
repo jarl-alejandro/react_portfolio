@@ -1,16 +1,16 @@
 import React from 'react';
 import Badges from './Badges';
 
-export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities }) => (
+export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail }) => (
   <div className='uk-card uk-card-large uk-card-default'>
 
     {/* Card Header */}
     <div className='uk-card-header'>
-      <div className="uk-grid-small uk-flex-middle" data-uk-grid>
+      <div className=" uk-flex-middle" data-uk-grid>
 
         {/* Thumbnail */}
-        <div className='uk-width-auto'>
-          <img className='uk-border-circle' width='40' height='40' src={image} alt={name} />
+        <div className=''>
+          <img className='uk-border-circle' width='40' height='40' src={thumbnail ? thumbnail : image} alt={name} />
         </div>
 
         {/* Summary info */}
