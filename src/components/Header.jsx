@@ -8,7 +8,7 @@ import NavItems from './NavItems';
 const Nav = styled.nav`
   z-index: 2000;
   position: fixed;
-  padding: 0 5px;
+  padding: 0 1em 0 5px;
   box-sizing: border-box;
   background: white;
   border: 1px solid grey;
