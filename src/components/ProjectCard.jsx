@@ -66,13 +66,12 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
     <div className='uk-card-footer uk-text-center'>
 
       {/* Drawer: Project details */}
-      <ul data-uk-accordion>
+      <ul data-uk-accordion='toggle: #accordion-activate'>
         <li>
 
           {/* Drawer toggle */}
-          <div className='uk-accordion-title'>
-            <button className='uk-button uk-button-text'>Details</button>
-          </div>
+          <button id='accordion-activate' className='uk-button uk-button-text'>Details</button>
+          <span className='uk-margin-small-left' data-uk-icon='info'></span>
 
           {/* Project details */}
           <div className="uk-accordion-content">
