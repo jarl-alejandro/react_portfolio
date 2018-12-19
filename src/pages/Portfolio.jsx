@@ -11,7 +11,7 @@ import Dropdown from '../components/Dropdown';
 const Gallery = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-evenly;
   align-items: center;
 
   @media screen and (min-width: 960px) {
@@ -22,6 +22,8 @@ const Gallery = styled.section`
 
 const SelectorView = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
 
   @media screen and (min-width: 960px) {
     max-width: 25%;
@@ -60,9 +62,10 @@ border-radius: 10%;
 
 const MainView = styled.div` 
   margin: 20px;
+  max-width: 100%;
 
   @media screen and (min-width: 960px) {
-    width: 50%;
+    max-width: 75%;
   }
 `;
 

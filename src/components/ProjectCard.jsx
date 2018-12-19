@@ -2,7 +2,7 @@ import React from 'react';
 import Badges from './Badges';
 
 export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail }) => (
-  <div className='uk-card uk-card-large uk-card-default'>
+  <div className='uk-card uk-card-default'>
 
     {/* Card Header */}
     <div className='uk-card-header'>
@@ -58,7 +58,7 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
 
       {/* Project Image(s) */}
       <div className='uk-card-media-bottom'>
-        <img src={image} alt={name} />
+        <img style={{ width: 1080, height: 608 }} src={image} alt={name} />
       </div>
     </div>
 

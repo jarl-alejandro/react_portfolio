@@ -17,7 +17,7 @@ export default ({ tags, handleChange }) => (
         tags.map(tag => <option key={tag}>{tag}</option>)
       }
     </select>
-    <button className='uk-button uk-button-default uk-form-small' type='button'>
+    <button className='uk-button uk-button-default uk-form-small uk-margin-small' type='button'>
       <span></span>
       <span className='uk-margin-left' data-uk-icon='triangle-down'></span>
     </button>
