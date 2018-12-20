@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Page from '../templates/Page'
 import projects from '../data/projects'
 
-const SlideShowItem = ({ name, description, for: _for, image, link, repo }) => {
+const SlideShowItem = ({ name, description, for: _for, image, link, repo, sources }) => {
 
   const Img = styled.img`
     width: 100%;
@@ -45,7 +45,16 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo }) => {
   return (
     <li>
       <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
-        <Img src={image} alt={name} />
+        {/* <Img src={image} alt={name} /> */}
+        <picture>
+          {sources && sources.map(source => {
+            const width = source.match(/\d+x/)[0].replace('x', '');
+            const min = Number(width * 0.70).toString();
+            const max = Number(width * 1.15).toString();
+            return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+          })}
+          <img src={image} alt={name} />
+        </picture>
       </div>
       <div className='uk-overlay uk-overlay-primary uk-position-bottom uk-text-justify uk-transition-slide-bottom uk-padding-small'>
         <ProjectName className='uk-margin-remove'>{name}</ProjectName>
