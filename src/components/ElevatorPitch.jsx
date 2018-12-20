@@ -208,7 +208,7 @@ export default class ElevatorPitch extends Component {
         {
           done &&
           <>
-            <Complete className='uk-overlay uk-overlay-primary uk-position-bottom-left uk-animation-slide-bottom'>
+            <Complete className='uk-overlay uk-overlay-primary uk-position-bottom uk-animation-slide-bottom'>
               <p>{this.pitch.complete}</p>
             </Complete>
             <button className='uk-position-bottom-right uk-padding-small uk-animation-slide-right' data-uk-icon='refresh' onClick={this.restartAdLib}></button>

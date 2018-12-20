@@ -91,7 +91,7 @@ export default () => {
       <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
       <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
-        <div className='uk-position-relative uk-padding uk-margin-remove'>
+        <div className='uk-position-relative uk-padding-small uk-margin-remove'>
 
           {/* Slide show list */}
           <ul className='uk-slideshow-items'>
