@@ -26,7 +26,7 @@ const SelectorView = styled.div`
   flex-direction: column;
 
   @media screen and (min-width: 960px) {
-    max-width: 25%;
+    max-width: 20%;
   }
 `;
 
@@ -41,9 +41,10 @@ const Thumbnails = styled.div`
   
   @media screen and (min-width: 960px) {
     height: 80vh;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    overflow-x hidden;
+    display: block;
+    // flex-wrap: wrap;
+    // align-items: flex-start;
+    overflow-x: auto;
   }
 `
 
