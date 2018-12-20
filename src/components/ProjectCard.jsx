@@ -1,7 +1,7 @@
 import React from 'react';
 import Badges from './Badges';
 
-export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail }) => (
+export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail, sources }) => (
   <div className='uk-card uk-card-default'>
 
     {/* Card Header */}
@@ -53,17 +53,8 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
       </div>
     </div>
 
-    {/* Card body */}
-    <div className='uk-card-body'>
-
-      {/* Project Image(s) */}
-      <div className='uk-card-media-bottom'>
-        <img style={{ width: 1080, height: 608 }} src={image} alt={name} />
-      </div>
-    </div>
-
-    {/* Card Footer */}
-    <div className='uk-card-footer uk-text-center'>
+    {/* Card Drawer */}
+    <div className='uk-text-center'>
 
       {/* Drawer: Project details */}
       <ul data-uk-accordion='toggle: #accordion-activate'>
@@ -85,5 +76,24 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
         </li>
       </ul>
     </div>
+
+    {/* Card body */}
+    <div className='uk-card-body'>
+
+      {/* Project Image(s) */}
+      <div className='uk-card-media-bottom'>
+        <picture>
+          {sources && sources.map(source => {
+            const width = source.match(/\d+x/)[0].replace('x', '');
+            const min = Number(width * 0.70).toString();
+            const max = Number(width * 1.15).toString();
+            return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+          })}
+          <img src={image} alt={name} />
+        </picture>
+      </div>
+    </div>
+
+    
   </div>
 )

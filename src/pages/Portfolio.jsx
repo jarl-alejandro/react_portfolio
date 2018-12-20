@@ -40,7 +40,7 @@ const Thumbnails = styled.div`
   height: 100px;
   
   @media screen and (min-width: 960px) {
-    height: 80vh
+    height: 80vh;
     flex-wrap: wrap;
     align-items: flex-start;
     overflow-x hidden;
