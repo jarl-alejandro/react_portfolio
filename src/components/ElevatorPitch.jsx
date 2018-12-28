@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
+import posed, { PoseGroup } from 'react-pose'
+import SplitText from 'react-pose-text';
 import computer from '../images/computer.jpg';
 
 const Line = styled.h2`
@@ -24,9 +26,9 @@ const Lead = styled.span`
   color: red;
 `;
 
-const AdLib = styled.span`
-  
-`;
+// const AdLib = styled.span`
+
+// `;
 
 const blink = keyframes`
   from, to {
@@ -48,9 +50,10 @@ const Hero = styled.img`
 
 export default class ElevatorPitch extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
+      adWordVisible: true,
       done: false,
       set: 0,
       sets: props.pitch.adLibs.length - 1
@@ -62,11 +65,18 @@ export default class ElevatorPitch extends Component {
     this.write = null;
   }
 
+  startAnimation = () => {
+    setInterval(() => {
+      this.setState(state => ({ adWordVisible: !state.adWordVisible }))
+    }, 12 * 100);
+  }
+
   componentDidMount() {
     const { done, set } = this.state;
 
     if (!done)
-      this.startAdLib(this.pitch.adLibs[set]);
+      this.startAnimation();
+    //   this.startAdLib(this.pitch.adLibs[set]);
   }
 
   writeChar = (char, el) => {
@@ -219,8 +229,13 @@ export default class ElevatorPitch extends Component {
           !done &&
           <div className='uk-overlay uk-position-bottom'>
             <Line>
-              <Lead ref={this.lead}></Lead>
-              <AdLib ref={this.adLib}></AdLib>
+              {/* <Lead ref={this.lead}></Lead> */}
+              {console.log(typeof this.state.currentLead)}
+              {/* <Lead>
+                <Type words={`${this.state.currentLead} `} />
+              </Lead> */}
+              <Type isVisible={this.state.adWordVisible} words='Hello world' />
+              {/* <AdLib ref={this.adLib}></AdLib> */}
               <Blinker>|</Blinker>
             </Line>
           </div>
@@ -230,3 +245,28 @@ export default class ElevatorPitch extends Component {
   }
 }
 
+const charPoses = {
+  initial: {
+    // color: ({ color }) => color ? color : 'inherit',
+    opacity: 0,
+    width: 0,
+  },
+  enter: {
+    opacity: 1,
+    width: 'inherit',
+    transition: { ease: 'anticipate' },
+    delay: ({ charIndex }) => charIndex * 75
+  },
+  exit: {
+    opacity: 0,
+    width: 0,
+    transition: { ease: 'anticipate' },
+    delay: ({ charIndex }) => charIndex * 25
+  }
+}
+
+const Type = ({ words, color, isVisible }) => (
+  <PoseGroup>
+    <SplitText color={color} key='1' initialPose='initial' charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
+  </PoseGroup>
+)
