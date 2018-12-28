@@ -52,7 +52,15 @@ export default class ElevatorPitch extends Component {
   constructor(props) {
     super(props);
 
+    const { pitch: { adLibs } } = props;
+    const currentAdLib = adLibs[0];
+    const currentLead = currentAdLib.lead;
+    const currentAdWord = currentAdLib.ads[0];
+
     this.state = {
+      currentAdLib,
+      currentLead,
+      currentAdWord,
       adWordVisible: true,
       done: false,
       set: 0,
@@ -65,10 +73,45 @@ export default class ElevatorPitch extends Component {
     this.write = null;
   }
 
+  delay = (func = () => { }, intervals = 12, delay = 100) => {
+
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        func();
+        resolve('done');
+      }, intervals * delay);
+
+    })
+
+  }
+
+  eraseWord = () => {
+    this.setState({ adWordVisible: false })
+  }
+
+  findWord = () => {
+    let newWord;
+
+    this.setState(state => {
+      const { currentAdLib: { ads }, currentAdWord } = this.state;
+      const currentPos = ads.findIndex(item => item === currentAdWord);
+      const nextPos = currentPos === ads.length - 1 ? 0 : currentPos + 1;
+      newWord = ads[nextPos];
+    })
+
+    return newWord
+  }
+
+  nextWord = async () => {
+    await this.delay(this.eraseWord, this.state.currentAdWord.length, 90);
+    const currentAdWord = await this.findWord();
+    await this.delay();
+    this.setState({ currentAdWord, adWordVisible: true });
+    this.nextWord();
+  }
+
   startAnimation = () => {
-    setInterval(() => {
-      this.setState(state => ({ adWordVisible: !state.adWordVisible }))
-    }, 12 * 100);
+    this.nextWord();
   }
 
   componentDidMount() {
@@ -211,7 +254,7 @@ export default class ElevatorPitch extends Component {
   }
 
   render() {
-    const { done } = this.state;
+    const { done, currentLead, currentAdWord } = this.state;
     return (
       <div id='hero' className='uk-inline'>
         <Hero data-src={computer} width='100%' height='100%' alt="Computer desk" data-uk-img />
@@ -230,11 +273,10 @@ export default class ElevatorPitch extends Component {
           <div className='uk-overlay uk-position-bottom'>
             <Line>
               {/* <Lead ref={this.lead}></Lead> */}
-              {console.log(typeof this.state.currentLead)}
-              {/* <Lead>
-                <Type words={`${this.state.currentLead} `} />
-              </Lead> */}
-              <Type isVisible={this.state.adWordVisible} words='Hello world' />
+              <Lead>
+                <Type words={`${currentLead} `} />
+              </Lead>
+              <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
               {/* <AdLib ref={this.adLib}></AdLib> */}
               <Blinker>|</Blinker>
             </Line>
