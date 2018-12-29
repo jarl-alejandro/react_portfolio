@@ -52,18 +52,19 @@ export default class ElevatorPitch extends Component {
   constructor(props) {
     super(props);
 
+    // Extract values from the props
     const { pitch: { adLibs } } = props;
     const currentAdLib = adLibs[0];
     const currentLead = currentAdLib.lead;
     const currentAdWord = currentAdLib.ads[0];
 
     this.state = {
-      currentAdLib,
-      currentLead,
-      currentAdWord,
-      leadWordVisible: true,
-      adWordVisible: true,
-      done: false,
+      currentAdLib,   // Entire phrase group
+      currentLead,    // Persistant lead word
+      currentAdWord,  // Current trailing word  
+      leadWordVisible: true,  // Lead word animation controller
+      adWordVisible: true,    // Trailing word animation controller
+      done: false,            // Full pitch controller
       set: 0,
       sets: props.pitch.adLibs.length - 1
     }
@@ -74,44 +75,120 @@ export default class ElevatorPitch extends Component {
     this.write = null;
   }
 
-  delay = (func = () => { }, intervals = 12, delay = 100) => {
-    return new Promise((resolve, reject) => {
-      this.write = setTimeout(() => {
-        func();
-        resolve('done');
-      }, intervals * delay);
+  // #region cycle_helper_functions
 
-    })
+  /* ----- Lead word helpers ----- */
 
+  /**
+   * Helper: Trigger lead word exit animation
+   */
+  eraseLeadWord = () => {
+    this.setState({ leadWordVisible: false })
   }
 
+  /* ----- AdWord Helpers ----- */
+  /**
+   * Helper: Dynamic function for delayed execution
+   * @param {function}  func Function to be executed after delay; default empty function
+   * @param {Number}  intervals A factor to set the length of the delay(count)
+   * @param {Number}  delay A factor to set the length of the delay(duration)
+   * @returns {Promise} Allow for async use 
+   */
+  delay = (func = () => { }, intervals = 12, delay = 100) => {
+    return new Promise(resolve => {
+      this.write = setTimeout(() => {
+        func()
+        resolve('done');
+      }, intervals * delay);
+    })
+  }
+
+  /**
+   * Helper: Triggers adWord exit animation
+   */
   eraseAdWord = () => {
     this.setState({ adWordVisible: false })
   }
 
+  /**
+   * Helper: Get the position of the current phrase in adWord list
+   * @param {String}  word  Word to find
+   * @returns {Number}  The index of word in current adWord list
+   */
   findAdWordPos = (word) => {
-    const { currentAdLib: { ads } } = this.state;
-    return ads.findIndex(item => item === word);
+    const { currentAdLib: { ads } } = this.state; // Get current adWord list
+    return ads.findIndex(item => item === word);  // Return it's index
   }
 
+  /**
+   * Helper: Get the position of the next word to display in the adWord list
+   * @param {Number}  pos The current adWords position
+   * @returns {Number}  The index of the next possible word in the current adWord list
+   */
   findNextAdWordPos = (pos) => {
-    const { currentAdLib: { ads } } = this.state;
-    return pos === ads.length - 1 ? 0 : pos + 1;
+    const { currentAdLib: { ads } } = this.state; // Get the current adWord list
+    return pos === ads.length - 1 ? 0 : pos + 1;  // Return the next index or zero if at list's end
   }
 
+  /**
+   * Helper: Find the next adWord in the current list
+   * @returns {String}  The next word in the adWord list
+   */
   findAdWord = () => {
-    let newWord;
+    const { currentAdLib: { ads }, currentAdWord } = this.state;  // Get reference items from the state
+    const currentPos = this.findAdWordPos(currentAdWord);         // Find the current words position
+    const nextPos = this.findNextAdWordPos(currentPos);           // Find the next words position
 
-    this.setState(state => {
-      const { currentAdLib: { ads }, currentAdWord } = state;
-      const currentPos = this.findAdWordPos(currentAdWord);
-      const nextPos = this.findNextAdWordPos(currentPos);
-      newWord = ads[nextPos];
-    })
-
-    return newWord;
+    return ads[nextPos];  //Return the next word
   }
 
+  /* ----- Phrase helpers ----- */
+
+  /**
+   * Helper: Get the position of the current phrase in the phrase list
+   * @param {Object}  phrase  The phrase to reference position
+   * @returns {Number}  The index of the phrase in the phrase list
+   */
+  findPhrasePos = (phrase) => {
+    const { pitch: { adLibs } } = this.props;         // Get phrase list
+    return adLibs.findIndex(item => item === phrase); // Return phrase's index in list
+  }
+
+  /**
+   * Helper: Get the position of the next phrase in the list
+   * @param {Number}  pos The current phrase position
+   * @returns {Number}  The index of the next phrase
+   */
+  findNextPhrasePos = (pos) => {
+    const { pitch: { adLibs } } = this.props;       // get phrase list
+    return pos === adLibs.length - 1 ? 0 : pos + 1; // Return next relative index or cycle back
+  }
+
+  /**
+   * Helper: Find the next phrase to display
+   * @returns {Object}  The next phrase to display
+   */
+  findPhrase = () => {
+    const { pitch: { adLibs } } = this.props; // Get the phrase list
+    const { currentAdLib } = this.state;      // Get the current phrase
+    const currentPos = this.findPhrasePos(currentAdLib);  // Determine current phrase relative position in list
+    const nextPos = this.findNextPhrasePos(currentPos);   // Determine the next phrase position
+
+    return adLibs[nextPos]; // Return new phrase
+  }
+
+  /**
+   * Helper: trigger the exit animation for the entire displayed phrase
+   */
+  eraseAll = async () => {
+    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
+    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 90);
+  }
+
+  //#endregion
+
+
+  //#region cycle_controls
   cycleAdWords = async () => {
     await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
     const currentAdWord = await this.findAdWord();
@@ -119,45 +196,11 @@ export default class ElevatorPitch extends Component {
     this.setState({ currentAdWord, adWordVisible: true });
     const nextPos = this.findNextAdWordPos(this.findAdWordPos(currentAdWord));
     const lastWord = this.findPhrasePos(this.state.currentAdLib) === this.props.pitch.adLibs.length - 1 && this.findAdWordPos(currentAdWord) === this.state.currentAdLib.ads.length - 1;
-    
+
     if (nextPos === 0)
       this.cyclePhrases();
     else
       this.cycleAdWords();
-  }
-
-  eraseLeadWord = () => {
-    this.setState({ leadWordVisible: false })
-  }
-
-  findPhrasePos = (phrase) => {
-    const { pitch: { adLibs } } = this.props;
-    return adLibs.findIndex(item => item === phrase);
-  }
-
-  findNextPhrasePos = (pos) => {
-    const { pitch: { adLibs } } = this.props;
-    return pos === adLibs.length - 1 ? 0 : pos + 1;
-  }
-
-  findPhrase = () => {
-    let newPhrase;
-
-    this.setState((state, props) => {
-      const { pitch: { adLibs } } = props;
-      const { currentAdLib } = state;
-      const currentPos = this.findPhrasePos(currentAdLib);
-      const nextPos = this.findNextPhrasePos(currentPos);
-      newPhrase = adLibs[nextPos];
-    })
-
-    return newPhrase;
-
-  }
-
-  eraseAll = async() => {
-    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
-    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 90); 
   }
 
   stopAnimation = async () => {
@@ -189,6 +232,17 @@ export default class ElevatorPitch extends Component {
   startAnimation = () => {
     this.cycleAdWords();
   }
+
+  restartAdLib = () => {
+    const { pitch: { adLibs } } = this.props;
+    const currentAdLib = adLibs[0];
+    const currentLead = currentAdLib.lead;
+    const currentAdWord = currentAdLib.ads[0];
+
+    this.setState({ currentAdLib, currentLead, currentAdWord, leadWordVisible: true, adWordVisible: true, done: false }, this.startAnimation);
+  };
+
+  //#endregion
 
   componentDidMount() {
     const { done, set } = this.state;
@@ -317,15 +371,6 @@ export default class ElevatorPitch extends Component {
       // this.startAdLib(this.pitch.adLibs[next]);
       this.setState({ set: next, done: true });
     }
-  };
-
-  restartAdLib = () => {
-    const { pitch: { adLibs } } = this.props;
-    const currentAdLib = adLibs[0];
-    const currentLead = currentAdLib.lead;
-    const currentAdWord = currentAdLib.ads[0];
-
-    this.setState({ currentAdLib, currentLead, currentAdWord, leadWordVisible: true, adWordVisible: true, done: false }, this.startAnimation);
   };
 
   componentWillUnmount = () => {
