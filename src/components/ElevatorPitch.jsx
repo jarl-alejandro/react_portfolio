@@ -85,7 +85,7 @@ export default class ElevatorPitch extends Component {
 
   }
 
-  eraseAdWord = (lead) => {
+  eraseAdWord = () => {
     this.setState({ adWordVisible: false })
   }
 
@@ -118,7 +118,8 @@ export default class ElevatorPitch extends Component {
     await this.delay();
     this.setState({ currentAdWord, adWordVisible: true });
     const nextPos = this.findNextAdWordPos(this.findAdWordPos(currentAdWord));
-
+    const lastWord = this.findPhrasePos(this.state.currentAdLib) === this.props.pitch.adLibs.length - 1 && this.findAdWordPos(currentAdWord) === this.state.currentAdLib.ads.length - 1;
+    
     if (nextPos === 0)
       this.cyclePhrases();
     else
@@ -160,8 +161,8 @@ export default class ElevatorPitch extends Component {
   }
 
   stopAnimation = async () => {
-    this.eraseAll();
-    await this.delay();
+    // this.eraseAll();
+    // await this.delay();
     this.setState({ done: true })
     clearTimeout(this.write);
   }
@@ -179,10 +180,9 @@ export default class ElevatorPitch extends Component {
       this.stopAnimation();
     }
     else {
-      this.setState({ currentAdLib: nextPhrase, currentLead: nextPhrase.lead, leadWordVisible: true })
-      await this.delay();
-      this.setState(state => ({ currentAdWord: state.currentAdLib.ads[0], adWordVisible: true }));
-      this.cycleAdWords();
+      this.setState({ currentAdLib: nextPhrase, currentLead: nextPhrase.lead, leadWordVisible: true }, () => {
+        this.setState(state => ({ currentAdWord: state.currentAdLib.ads[0], adWordVisible: true }), this.cycleAdWords);
+      })
     }
   }
 
@@ -320,9 +320,12 @@ export default class ElevatorPitch extends Component {
   };
 
   restartAdLib = () => {
-    this.setState({ done: false, set: 0 }, () => {
-      this.startAdLib(this.pitch.adLibs[this.state.set]);
-    })
+    const { pitch: { adLibs } } = this.props;
+    const currentAdLib = adLibs[0];
+    const currentLead = currentAdLib.lead;
+    const currentAdWord = currentAdLib.ads[0];
+
+    this.setState({ currentAdLib, currentLead, currentAdWord, leadWordVisible: true, adWordVisible: true, done: false }, this.startAnimation);
   };
 
   componentWillUnmount = () => {
@@ -374,7 +377,7 @@ const charPoses = {
     opacity: 1,
     width: 'inherit',
     transition: { ease: 'anticipate' },
-    delay: ({ charIndex }) => charIndex * 75
+    delay: ({ charIndex }) => charIndex * 15
   },
   exit: {
     opacity: 0,
