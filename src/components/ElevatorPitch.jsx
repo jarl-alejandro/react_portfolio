@@ -61,6 +61,7 @@ export default class ElevatorPitch extends Component {
       currentAdLib,
       currentLead,
       currentAdWord,
+      leadWordVisible: true,
       adWordVisible: true,
       done: false,
       set: 0,
@@ -74,9 +75,8 @@ export default class ElevatorPitch extends Component {
   }
 
   delay = (func = () => { }, intervals = 12, delay = 100) => {
-
     return new Promise((resolve, reject) => {
-      setTimeout(() => {
+      this.write = setTimeout(() => {
         func();
         resolve('done');
       }, intervals * delay);
@@ -85,33 +85,109 @@ export default class ElevatorPitch extends Component {
 
   }
 
-  eraseWord = () => {
+  eraseAdWord = (lead) => {
     this.setState({ adWordVisible: false })
   }
 
-  findWord = () => {
+  findAdWordPos = (word) => {
+    const { currentAdLib: { ads } } = this.state;
+    return ads.findIndex(item => item === word);
+  }
+
+  findNextAdWordPos = (pos) => {
+    const { currentAdLib: { ads } } = this.state;
+    return pos === ads.length - 1 ? 0 : pos + 1;
+  }
+
+  findAdWord = () => {
     let newWord;
 
     this.setState(state => {
-      const { currentAdLib: { ads }, currentAdWord } = this.state;
-      const currentPos = ads.findIndex(item => item === currentAdWord);
-      const nextPos = currentPos === ads.length - 1 ? 0 : currentPos + 1;
+      const { currentAdLib: { ads }, currentAdWord } = state;
+      const currentPos = this.findAdWordPos(currentAdWord);
+      const nextPos = this.findNextAdWordPos(currentPos);
       newWord = ads[nextPos];
     })
 
-    return newWord
+    return newWord;
   }
 
-  nextWord = async () => {
-    await this.delay(this.eraseWord, this.state.currentAdWord.length, 90);
-    const currentAdWord = await this.findWord();
+  cycleAdWords = async () => {
+    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
+    const currentAdWord = await this.findAdWord();
     await this.delay();
     this.setState({ currentAdWord, adWordVisible: true });
-    this.nextWord();
+    const nextPos = this.findNextAdWordPos(this.findAdWordPos(currentAdWord));
+
+    if (nextPos === 0)
+      this.cyclePhrases();
+    else
+      this.cycleAdWords();
+  }
+
+  eraseLeadWord = () => {
+    this.setState({ leadWordVisible: false })
+  }
+
+  findPhrasePos = (phrase) => {
+    const { pitch: { adLibs } } = this.props;
+    return adLibs.findIndex(item => item === phrase);
+  }
+
+  findNextPhrasePos = (pos) => {
+    const { pitch: { adLibs } } = this.props;
+    return pos === adLibs.length - 1 ? 0 : pos + 1;
+  }
+
+  findPhrase = () => {
+    let newPhrase;
+
+    this.setState((state, props) => {
+      const { pitch: { adLibs } } = props;
+      const { currentAdLib } = state;
+      const currentPos = this.findPhrasePos(currentAdLib);
+      const nextPos = this.findNextPhrasePos(currentPos);
+      newPhrase = adLibs[nextPos];
+    })
+
+    return newPhrase;
+
+  }
+
+  eraseAll = async() => {
+    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
+    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 90); 
+  }
+
+  stopAnimation = async () => {
+    this.eraseAll();
+    await this.delay();
+    this.setState({ done: true })
+    clearTimeout(this.write);
+  }
+
+  cyclePhrases = async () => {
+    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
+    await this.delay(() => { }, 12, 10);
+    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 100);
+    const nextPhrase = this.findPhrase();
+
+    const PhrasePos = this.findPhrasePos(this.state.currentAdLib);
+    const AdWordPos = this.findAdWordPos(this.state.currentAdWord);
+
+    if (PhrasePos === this.props.pitch.adLibs.length - 1 && AdWordPos === this.state.currentAdLib.ads.length - 1) {
+      this.stopAnimation();
+    }
+    else {
+      this.setState({ currentAdLib: nextPhrase, currentLead: nextPhrase.lead, leadWordVisible: true })
+      await this.delay();
+      this.setState(state => ({ currentAdWord: state.currentAdLib.ads[0], adWordVisible: true }));
+      this.cycleAdWords();
+    }
   }
 
   startAnimation = () => {
-    this.nextWord();
+    this.cycleAdWords();
   }
 
   componentDidMount() {
@@ -250,7 +326,8 @@ export default class ElevatorPitch extends Component {
   };
 
   componentWillUnmount = () => {
-    clearInterval(this.write)
+    clearInterval(this.write);
+    clearTimeout(this.write);
   }
 
   render() {
@@ -274,7 +351,7 @@ export default class ElevatorPitch extends Component {
             <Line>
               {/* <Lead ref={this.lead}></Lead> */}
               <Lead>
-                <Type words={`${currentLead} `} />
+                <Type isVisible={this.state.leadWordVisible} words={`${currentLead} `} />
               </Lead>
               <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
               {/* <AdLib ref={this.adLib}></AdLib> */}
@@ -303,7 +380,7 @@ const charPoses = {
     opacity: 0,
     width: 0,
     transition: { ease: 'anticipate' },
-    delay: ({ charIndex }) => charIndex * 25
+    delay: ({ charIndex }) => charIndex * 10
   }
 }
 
