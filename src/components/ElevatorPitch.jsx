@@ -59,9 +59,9 @@ export default class ElevatorPitch extends Component {
     const currentAdWord = currentAdLib.ads[0];
 
     this.state = {
-      currentAdLib,   // Entire phrase group
-      currentLead,    // Persistant lead word
-      currentAdWord,  // Current trailing word  
+      currentAdLib,           // Entire phrase group
+      currentLead,            // Persistant lead word
+      currentAdWord,          // Current trailing word  
       leadWordVisible: true,  // Lead word animation controller
       adWordVisible: true,    // Trailing word animation controller
       done: false,            // Full pitch controller
@@ -412,28 +412,38 @@ export default class ElevatorPitch extends Component {
   }
 }
 
+const wordPoses = {
+  initial: {
+    width: 'fit-content',
+  },
+  exit: {
+    width: 0,
+    transition: { ease: 'anticipate', duration: 10 },
+    afterChildren: true,
+  }
+}
+
 const charPoses = {
   initial: {
-    // color: ({ color }) => color ? color : 'inherit',
     opacity: 0,
     width: 0,
   },
   enter: {
     opacity: 1,
-    width: 'inherit',
+    width: 'fit-content',
     transition: { ease: 'anticipate' },
-    delay: ({ charIndex }) => charIndex * 15
+    delay: ({ charIndex }) => charIndex * 50
   },
   exit: {
     opacity: 0,
     width: 0,
     transition: { ease: 'anticipate' },
-    delay: ({ charIndex }) => charIndex * 10
   }
 }
 
+
 const Type = ({ words, color, isVisible }) => (
   <PoseGroup>
-    <SplitText color={color} key='1' initialPose='initial' charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
+    <SplitText color={color} key='1' initialPose='initial' wordPoses={wordPoses} charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
   </PoseGroup>
 )
