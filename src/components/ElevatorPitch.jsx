@@ -200,77 +200,115 @@ export default class ElevatorPitch extends Component {
 
 
   //#region cycle_controls
+
+  /**
+   * Control the cycling of a list of trailing words
+   */
   cycleAdWords = async () => {
-    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
-    const currentAdWord = await this.findAdWord();
-    await this.delay();
-    this.setState({ currentAdWord, adWordVisible: true });
+
+    // Check if first render of the phrase
+    if (this.findAdWordPos(this.state.currentAdWord) === 0)
+      // Set delay to account for the animation of the lead/ trailing word
+      await this.delay(this.eraseAdWord, this.state.currentLead.length + this.state.currentAdWord.length, 60);
+    else
+      // Otherwise, only delay for the trailing word animation
+      await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 60);
+
+    const currentAdWord = this.findAdWord();  // Get next word to render
+
+    // Set delay for the exiting animation of the word before setting new word
+    await this.delay(() => {
+      this.setState({ currentAdWord, adWordVisible: true });  // Set new word and ensure enter control reset
+    }, 1, 400);
+
+    // Get the index of the next word for reference
     const nextPos = this.findNextAdWordPos(this.findAdWordPos(currentAdWord));
 
-    if (nextPos === 0)
-      this.cyclePhrases();
-    else
-      this.cycleAdWords();
-  }
+    // Check: At the end of the word list
+    if (nextPos === 0) {
 
-  stopAnimation = async () => {
-    // this.eraseAll();
-    // await this.delay();
-    this.setState({ done: true })
-    clearTimeout(this.write);
+      // Check: Is it the last word in the last phrase
+      if (this.findPhrasePos(this.state.currentAdLib) === this.props.pitch.adLibs.length - 1 && this.findAdWordPos(this.state.currentAdWord) === this.state.currentAdLib.ads.length - 1) {
+        this.cycleAdWords();                // Animate last word
+        await this.delay(                   // Set delay for the completion of the last word animation
+          this.stopAnimation,               // Stop the animation
+          this.state.currentAdWord.length,  // Length of the last word
+          60                                // Interval between character
+        )
+      }
+      else
+        this.cyclePhrases();  // Move to the next phrase
+    }
+    else
+      this.cycleAdWords();    // Move to next word in the list
   }
 
   /**
-   * Control the cycling of multiple pitch phrases with trailing word lists
+   * Control for stopping the animation and clear timed events
+   */
+  stopAnimation = () => {
+    this.setState({ done: true });  // Change between phrases and complete pitch
+    clearTimeout(this.write);       // Ensure timeouts are cleared
+  }
+
+  /**
+   * Control the cycling of multiple phrases with trailing word lists
    */
   cyclePhrases = async () => {
     await this.eraseAll();                // Remove the entire current phrase
     const nextPhrase = this.findPhrase(); // Get the next phrase to render
 
-    const PhrasePos = this.findPhrasePos(this.state.currentAdLib);  //Get the current phrase index for reference
-    const AdWordPos = this.findAdWordPos(this.state.currentAdWord); // Get the current trailing words index for reference
+    // Update and trigger lead words animation
+    this.setState({
+      currentAdLib: nextPhrase,     // Set new phrase
+      currentLead: nextPhrase.lead, // Set new lead word
+      leadWordVisible: true         // Ensure entering animation reset
+    },
+      // Callback function after lead state update
+      async () => {
 
-    console.log(PhrasePos, AdWordPos)
-    // Check: Is last word of the last phrase to render
-    if (PhrasePos === this.props.pitch.adLibs.length - 1 && AdWordPos === this.state.currentAdLib.ads.length - 1) {
-      this.stopAnimation(); // Stop animation and show entire pitch
-    }
-    else {
-      // Update and trigger lead words animation
-      this.setState({
-        currentAdLib: nextPhrase,     // Set new phrase
-        currentLead: nextPhrase.lead, // Set new lead word
-        leadWordVisible: true         // Ensure entering animation reset
-      },
-        // Callback function after lead state update
-        async () => {
+        // Async delay to allow lead words entering animation to complete
+        await this.delay(() => {
 
-          // Async delay to allow lead words entering animation to complete
-          await this.delay(() => {
-
-            // Update and trigger trailing words animation
-            this.setState(state => ({
-              currentAdWord: state.currentAdLib.ads[0], // Set trailing words to new phrase first word in list
-              adWordVisible: true                       // Ensure entering animation reset
-            }), this.cycleAdWords);
+          // Update and trigger trailing words animation
+          this.setState(state => ({
+            currentAdWord: state.currentAdLib.ads[0], // Set trailing words to new phrase first word in list
+            adWordVisible: true                       // Ensure entering animation reset
+          }), this.cycleAdWords);
 
         }, nextPhrase.lead.length, 50)
 
       })
-    }
   }
 
+  /**
+   * Control for starting the animation
+   */
   startAnimation = () => {
     this.cycleAdWords();
   }
 
+  /**
+   * Control for restarting animation
+   */
   restartAdLib = () => {
-    const { pitch: { adLibs } } = this.props;
-    const currentAdLib = adLibs[0];
-    const currentLead = currentAdLib.lead;
-    const currentAdWord = currentAdLib.ads[0];
 
-    this.setState({ currentAdLib, currentLead, currentAdWord, leadWordVisible: true, adWordVisible: true, done: false }, this.startAnimation);
+    const { pitch: { adLibs } } = this.props;   // Parse original data for use
+    const currentAdLib = adLibs[0];             // Set phrase to first phrase
+    const currentLead = currentAdLib.lead;      // Set the lead words
+    const currentAdWord = currentAdLib.ads[0];  // Set the trailing words to the first set in the list
+
+    // Set new data and reset controllers
+    this.setState({
+      currentAdLib,           // Phrase
+      currentLead,            // Lead words
+      currentAdWord,          // Trailing words
+      leadWordVisible: true,  // Lead controller
+      adWordVisible: true,    // Trailing controller
+      done: false             // Phrase/Pitch controller
+    },
+      this.startAnimation     // Callback: trigger phrase animation
+    );
   };
 
   //#endregion
@@ -449,7 +487,7 @@ const wordPoses = {
   },
   exit: {
     width: 0,
-    transition: { ease: 'anticipate', duration: 10 },
+    transition: { ease: 'easeInOut', duration: 10 },
     afterChildren: true,
   }
 }
