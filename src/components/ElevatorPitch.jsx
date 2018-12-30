@@ -181,8 +181,19 @@ export default class ElevatorPitch extends Component {
    * Helper: trigger the exit animation for the entire displayed phrase
    */
   eraseAll = async () => {
-    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
-    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 90);
+    // Async delay to allow for the trailing word to be animated
+    await this.delay(() => {
+
+      // Trigger the exit animation for trailing words
+      this.setState({ adWordVisible: false }, () => {
+
+        // Trigger exit animation for lead words
+        this.setState({ leadWordVisible: false });
+      })
+    }, this.state.currentAdWord.length, 55);
+
+    // Async delay to allow the all exiting animations to complete
+    await this.delay(() => { }, 1, 340);
   }
 
   //#endregion
@@ -195,7 +206,6 @@ export default class ElevatorPitch extends Component {
     await this.delay();
     this.setState({ currentAdWord, adWordVisible: true });
     const nextPos = this.findNextAdWordPos(this.findAdWordPos(currentAdWord));
-    const lastWord = this.findPhrasePos(this.state.currentAdLib) === this.props.pitch.adLibs.length - 1 && this.findAdWordPos(currentAdWord) === this.state.currentAdLib.ads.length - 1;
 
     if (nextPos === 0)
       this.cyclePhrases();
@@ -210,21 +220,42 @@ export default class ElevatorPitch extends Component {
     clearTimeout(this.write);
   }
 
+  /**
+   * Control the cycling of multiple pitch phrases with trailing word lists
+   */
   cyclePhrases = async () => {
-    await this.delay(this.eraseAdWord, this.state.currentAdWord.length, 90);
-    await this.delay(() => { }, 12, 10);
-    await this.delay(this.eraseLeadWord, this.state.currentLead.length, 100);
-    const nextPhrase = this.findPhrase();
+    await this.eraseAll();                // Remove the entire current phrase
+    const nextPhrase = this.findPhrase(); // Get the next phrase to render
 
-    const PhrasePos = this.findPhrasePos(this.state.currentAdLib);
-    const AdWordPos = this.findAdWordPos(this.state.currentAdWord);
+    const PhrasePos = this.findPhrasePos(this.state.currentAdLib);  //Get the current phrase index for reference
+    const AdWordPos = this.findAdWordPos(this.state.currentAdWord); // Get the current trailing words index for reference
 
+    console.log(PhrasePos, AdWordPos)
+    // Check: Is last word of the last phrase to render
     if (PhrasePos === this.props.pitch.adLibs.length - 1 && AdWordPos === this.state.currentAdLib.ads.length - 1) {
-      this.stopAnimation();
+      this.stopAnimation(); // Stop animation and show entire pitch
     }
     else {
-      this.setState({ currentAdLib: nextPhrase, currentLead: nextPhrase.lead, leadWordVisible: true }, () => {
-        this.setState(state => ({ currentAdWord: state.currentAdLib.ads[0], adWordVisible: true }), this.cycleAdWords);
+      // Update and trigger lead words animation
+      this.setState({
+        currentAdLib: nextPhrase,     // Set new phrase
+        currentLead: nextPhrase.lead, // Set new lead word
+        leadWordVisible: true         // Ensure entering animation reset
+      },
+        // Callback function after lead state update
+        async () => {
+
+          // Async delay to allow lead words entering animation to complete
+          await this.delay(() => {
+
+            // Update and trigger trailing words animation
+            this.setState(state => ({
+              currentAdWord: state.currentAdLib.ads[0], // Set trailing words to new phrase first word in list
+              adWordVisible: true                       // Ensure entering animation reset
+            }), this.cycleAdWords);
+
+        }, nextPhrase.lead.length, 50)
+
       })
     }
   }
