@@ -6,10 +6,10 @@ import projects from '../data/projects'
 
 const SlideShowItem = ({ name, description, for: _for, image, link, repo, sources }) => {
 
-  const Img = styled.img`
-    width: 100%;
-    height: 100%;
-  `;
+  // const Img = styled.img`
+  //   width: 100%;
+  //   height: 100%;
+  // `;
 
   const ProjectName = styled.h3`
     font-size: 1.25em;

@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
-import posed, { PoseGroup } from 'react-pose'
+import { PoseGroup } from 'react-pose'
 import SplitText from 'react-pose-text';
 import computer from '../images/computer.jpg';
+
+//#region style_components
 
 const Line = styled.h2`
   color: white;
@@ -48,6 +50,8 @@ const Hero = styled.img`
   height: 80vh;
 `;
 
+//#endregion
+
 export default class ElevatorPitch extends Component {
   constructor(props) {
     super(props);
@@ -65,17 +69,13 @@ export default class ElevatorPitch extends Component {
       leadWordVisible: true,  // Lead word animation controller
       adWordVisible: true,    // Trailing word animation controller
       done: false,            // Full pitch controller
-      set: 0,
-      sets: props.pitch.adLibs.length - 1
     }
 
     this.pitch = props.pitch;
-    this.lead = React.createRef();
-    this.adLib = React.createRef();
-    this.write = null;
+    this.write = null;        // For managing timed events
   }
 
-  // #region cycle_helper_functions
+  //#region cycle_helper_functions
 
   /* ----- Lead word helpers ----- */
 
@@ -198,7 +198,6 @@ export default class ElevatorPitch extends Component {
 
   //#endregion
 
-
   //#region cycle_controls
 
   /**
@@ -313,139 +312,19 @@ export default class ElevatorPitch extends Component {
 
   //#endregion
 
+  //#region lifecycle
   componentDidMount() {
-    const { done, set } = this.state;
+    const { done } = this.state;
 
     if (!done)
       this.startAnimation();
-    //   this.startAdLib(this.pitch.adLibs[set]);
   }
-
-  writeChar = (char, el) => {
-    el.innerHTML += char; // Concat char to current innerHTML 
-  };
-
-  writeString = (str, el, interval) => {
-    const length = str.length;
-    let count = 0;
-    let write = null;
-
-    write = setInterval(() => {
-      if (count < length) {
-        this.writeChar(str[count], el);
-        count++;
-      }
-      else
-        clearInterval(write);
-
-    }, interval);
-
-  }
-
-  eraseChar = (el) => {
-    const strArr = el.innerHTML.split('');  // Split into an array
-    strArr.pop();                           // Remove the last char
-    const str = strArr.join('');            // Convert new array back to string
-    el.innerHTML = str;                     // Write new string to element
-  };
-
-  eraseString = (el, interval) => {
-    let erase = null;
-
-    erase = setInterval(() => {
-      if (el.innerHTML.length !== 0) {
-        this.eraseChar(el);
-      }
-      else {
-        clearInterval(erase);
-        return true;
-      }
-
-    }, interval);
-  };
-
-  cycleAdLibs = (ads, interval) => {
-    const ad = this.adLib.current;  // Element to write to
-    let previous = '';
-    let next = true;                // Track when to move to next word
-    let idx = 0;
-
-    // Start interval
-    this.write = setInterval(() => {
-      // Ready for next word
-      if (next) {
-
-        // End of list, recycle or move on
-        if (idx === ads.length - 1) {
-          clearInterval(this.write); // stop the current cycle
-          this.nextSet();
-          return;               // Exit function
-        }
-
-        // Not the first iteration 
-        else if (previous) {
-          idx += 1; // Move to nex word
-        }
-
-        this.writeString(ads[idx], ad, interval);   // Write the string
-        next = false;                               // Block next word
-      }
-
-      // Typing or erasing
-      else {
-
-        // End of typing the word
-        if (ad.innerHTML.length === ads[idx].length) {
-          previous = ad.innerHTML;  // Store the word
-          this.eraseString(ad, 50); // Erase the word
-
-          // 
-          setTimeout(() => {
-            next = true;
-          }, interval / 2 * previous.length);
-        }
-      }
-
-    }, interval);
-  }
-
-  startAdLib = (adLib) => {
-    const lead = this.lead.current;
-
-    const leadPhrase = adLib.lead + ' ';
-    const { ads } = adLib;
-
-    if (lead.innerHTML.length !== 0) {
-      this.eraseString(lead);
-    }
-
-    this.writeString(leadPhrase, lead, 150);
-
-    setTimeout(() => {
-      this.cycleAdLibs(ads, 100);
-    }, 150 * leadPhrase.length);
-  };
-
-  nextSet = () => {
-    const { set, sets } = this.state;
-    let next;
-
-    if (set < sets) {
-      next = set + 1;
-      this.startAdLib(this.pitch.adLibs[next]);
-      this.setState({ set: next });
-    }
-    else {
-      next = 0;
-      // this.startAdLib(this.pitch.adLibs[next]);
-      this.setState({ set: next, done: true });
-    }
-  };
 
   componentWillUnmount = () => {
-    clearInterval(this.write);
     clearTimeout(this.write);
   }
+
+  //#endregion
 
   render() {
     const { done, currentLead, currentAdWord } = this.state;
@@ -466,12 +345,10 @@ export default class ElevatorPitch extends Component {
           !done &&
           <div className='uk-overlay uk-position-bottom'>
             <Line>
-              {/* <Lead ref={this.lead}></Lead> */}
               <Lead>
                 <Type isVisible={this.state.leadWordVisible} words={`${currentLead} `} />
               </Lead>
               <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
-              {/* <AdLib ref={this.adLib}></AdLib> */}
               <Blinker>|</Blinker>
             </Line>
           </div>
@@ -481,6 +358,9 @@ export default class ElevatorPitch extends Component {
   }
 }
 
+//#region posed_text
+
+// Config for word level animations
 const wordPoses = {
   initial: {
     width: 'fit-content',
@@ -488,10 +368,11 @@ const wordPoses = {
   exit: {
     width: 0,
     transition: { ease: 'easeInOut', duration: 10 },
-    afterChildren: true,
+    afterChildren: true,  // Happens after the character exit animation
   }
 }
 
+// Config for character level animations
 const charPoses = {
   initial: {
     opacity: 0,
@@ -501,7 +382,7 @@ const charPoses = {
     opacity: 1,
     width: 'fit-content',
     transition: { ease: 'anticipate' },
-    delay: ({ charIndex }) => charIndex * 50
+    delay: ({ charIndex }) => charIndex * 50  // Character flow control
   },
   exit: {
     opacity: 0,
@@ -510,9 +391,16 @@ const charPoses = {
   }
 }
 
-
-const Type = ({ words, color, isVisible }) => (
+/**
+ * Helper component to manage animations. Uses react-pose and react-pose-text courtesy of Popmotion
+ * @param {String} words String to animate
+ * @param {Boolean} isVisible Pose control
+ * @returns {Object}  Posed React Component
+ */
+const Type = ({ words, isVisible }) => (
   <PoseGroup>
-    <SplitText color={color} key='1' initialPose='initial' wordPoses={wordPoses} charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
+    <SplitText key='txt' initialPose='initial' wordPoses={wordPoses} charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
   </PoseGroup>
 )
+
+//#endregion
