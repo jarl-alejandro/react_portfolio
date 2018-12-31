@@ -9,16 +9,25 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Allow for fixed header on smaller screen */
+/* Adjust lightbox to account for header on smaller screens */
 .uk-lightbox {
   margin-top: 3em;
   transition: margin-top 500ms ease-in;
 }
 
-/* Allow for fixed sidebar on larger screens */
+/* Adjust modal to account for header on smaller screens */
+.uk-modal {
+  top: 3em;
+}
+
+/* Account for fixed sidebar on larger screens */
 @media screen and (min-width: 960px){
   .uk-lightbox {
     margin-top: 0em;
     transition: margin-top 500ms ease-in;
+  }
+
+  .uk-modal {
+    top: 0;
   }
 }
