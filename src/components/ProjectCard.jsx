@@ -1,5 +1,20 @@
 import React from 'react';
+import styled from 'styled-components';
 import Badges from './Badges';
+
+//#region styled_components
+
+const Info = styled.div`
+  width: 100%;
+`;
+
+const Title = styled.p`
+  font-size: 125%;
+`;
+
+const Meta = styled.p`
+  font-size: 90%;
+`;
 
 export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail, sources }) => (
   <div className='uk-card uk-card-default'>
@@ -9,18 +24,18 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
       <div className=" uk-flex-middle" data-uk-grid>
 
         {/* Thumbnail */}
-        <div className=''>
+        <div className='uk-visible@s'>
           <img className='uk-border-circle' width='40' height='40' src={thumbnail ? thumbnail : image} alt={name} />
         </div>
 
         {/* Summary info */}
-        <div className='uk-width-expand uk-flex uk-flex-between uk-flex-middle uk-flex-wrap'>
+        <div className='uk-width-expand uk-flex uk-flex-between uk-flex-middle'>
 
           {/* Title/meta */}
-          <div>
-            <h3 className='uk-card-title uk-margin-remove-bottom'>{name}</h3>
-            <p className='uk-text-meta uk-margin-remove-top'>{_for}</p>
-          </div>
+          <Info>
+            <Title className='uk-card-title uk-margin-remove-bottom'>{name}</Title>
+            <Meta style={{ fontSize: '90%' }} className='uk-text-meta uk-margin-remove-top'>{_for}</Meta>
+          </Info>
 
           {/* Project links */}
           <div className='uk-flex-inline'>
@@ -70,10 +85,14 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
           <div className="uk-accordion-content">
 
             {/* Description data */}
-            <p>{description}</p>
+            <Info>
+              <Meta>{description}</Meta>
+            </Info>
 
             {/* Badges: List of skills and badges */}
-            <Badges frameworks={frameworks} languages={languages} utilities={utilities} />
+            <Info>
+              <Badges frameworks={frameworks} languages={languages} utilities={utilities} />
+            </Info>
           </div>
         </li>
       </ul>
@@ -86,7 +105,6 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
       <div className='uk-card-media-bottom'>
         <picture>
           {sources && sources.map(source => {
-            console.log(/16x9/.test(source))
 
             if (/16x9/.test(source)) {
               const width = source.match(/\d+x/)[0].replace('x', '');
