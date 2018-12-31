@@ -11,20 +11,26 @@ import projects from '../data/projects'
 const SlideShowItem = ({ name, description, for: _for, image, link, repo, sources }) => {
 
   //#region styled_components
+
+  const ProjectData = styled.div`
+    width: 100%;
+  `;
+
+
   const ProjectName = styled.h3`
-    font-size: 1.25em;
+    font-size: 120%;
 
     @media screen and (min-width: 960px) {
-      font-size: 1.5em;
+      font-size: 150%;
     }
   `;
 
   const Meta = styled.p`
-    font-size: 0.65em;
+    font-size: 65%;
     margin: 0;
 
     @media screen and (min-width: 960px) {
-      font-size: inherit;
+      font-size: 100%;
     }
   `;
 
@@ -61,15 +67,17 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
 
       {/* Project meta data overlay */}
       <div className='uk-overlay uk-overlay-primary uk-position-bottom uk-text-justify uk-transition-slide-bottom uk-padding-small'>
-        <ProjectName className='uk-margin-remove'>{name}</ProjectName>
-        <Meta className=''>{description}</Meta>
-        <Meta className='uk-text-right uk-margin-small-top'>{_for}</Meta>
+        <ProjectData>
+          <ProjectName className='uk-margin-remove'>{name}</ProjectName>
+          <Meta className=''>{description}</Meta>
+          <Meta className='uk-text-right uk-margin-small-top'>- {_for}</Meta>
+        </ProjectData>
       </div>
 
       {/* Project link overlay */}
       <Overlay className='uk-overlay uk-overlay-primary uk-position-cover'>
         <div data-uk-grid>
-          
+
           {/* Active site link */}
           <a href={link}>
             <p className='uk-icon-button' data-uk-icon='icon: world; ratio: 2'></p>
@@ -78,7 +86,7 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
 
           {/* Repository link */}
           <a href={repo}>
-            <p className='uk-icon-button'  data-uk-icon='icon: code; ratio: 2'></p>
+            <p className='uk-icon-button' data-uk-icon='icon: code; ratio: 2'></p>
             <p>Repo</p>
           </a>
         </div>
@@ -126,7 +134,7 @@ export default () => {
           <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
           <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></SlideNav>
         </div>
-        
+
         {/* Dotnav navigation */}
         <ul className='uk-slideshow-nav uk-dotnav uk-flex-center uk-margin-remove'></ul>
       </div>

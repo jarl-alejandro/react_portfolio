@@ -8,20 +8,16 @@ import computer from '../images/computer.jpg';
 
 const Line = styled.h2`
   color: white;
-  // font-size: 1.25em;
+  width: 100%;
+`;
 
-  @media screen and (min-width: 960px) {
-    // font-size: inherit;
-  }
+const Phrase = styled.span`
+  font-size: 100%;
 `;
 
 const Complete = styled.div`
   color: white;
-  font-size: 0.90em;
-
-  @media screen and (min-width: 960px) {
-    font-size: inherit;
-  }
+  font-size: 100%;
 `;
 
 const Lead = styled.span`
@@ -353,15 +349,18 @@ export default class ElevatorPitch extends Component {
             <Line>
 
               {/* Lead string container */}
-              <Lead>
-                <Type isVisible={this.state.leadWordVisible} words={`${currentLead} `} />
-              </Lead>
+              <Phrase>
+                <Lead>
 
-              {/* Trailing string container */}
-              <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
+                  <Type isVisible={this.state.leadWordVisible} words={`${currentLead} `} />
+                </Lead>
 
-              {/* Blinking cursor */}
-              <Blinker>|</Blinker>
+                {/* Trailing string container */}
+                <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
+
+                {/* Blinking cursor */}
+                <Blinker>|</Blinker>
+              </Phrase>
             </Line>
           </div>
         }
