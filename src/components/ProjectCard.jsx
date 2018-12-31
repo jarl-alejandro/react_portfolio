@@ -61,8 +61,10 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
         <li>
 
           {/* Drawer toggle */}
-          <button id='accordion-activate' className='uk-button uk-button-text'>Details</button>
-          <span className='uk-margin-small-left' data-uk-icon='info'></span>
+          <button id='accordion-activate' className='uk-button uk-button-text'>
+            <span>Details</span>
+            <span className='uk-margin-small-left' data-uk-icon='info'></span>
+          </button>
 
           {/* Project details */}
           <div className="uk-accordion-content">
