@@ -3,7 +3,6 @@ import Badge from './Badge'
 
 export default ({ languages, frameworks, utilities }) => {
  
-  
   const badges = languages.concat(frameworks, utilities);
 
   return (

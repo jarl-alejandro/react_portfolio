@@ -61,6 +61,8 @@ export default () => {
     }
   }
 
+  //#region styled_components
+
   const Items = styled.div`
     height: 100%;
     display: flex;
@@ -86,6 +88,7 @@ export default () => {
     }
   `;
 
+  //#endregion
 
   return (
     <Items>

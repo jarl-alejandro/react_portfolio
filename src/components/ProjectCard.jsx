@@ -93,7 +93,5 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
         </picture>
       </div>
     </div>
-
-    
   </div>
 )

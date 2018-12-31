@@ -4,13 +4,13 @@ import styled from 'styled-components';
 import Page from '../templates/Page'
 import projects from '../data/projects'
 
+/**
+ * Featured projects slideshow items
+ * @param {Object} props Passed in data
+ */
 const SlideShowItem = ({ name, description, for: _for, image, link, repo, sources }) => {
 
-  // const Img = styled.img`
-  //   width: 100%;
-  //   height: 100%;
-  // `;
-
+  //#region styled_components
   const ProjectName = styled.h3`
     font-size: 1.25em;
 
@@ -42,10 +42,12 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
       }
   `;
 
+  //#endregion
+
   return (
     <li>
       <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
-        {/* <Img src={image} alt={name} /> */}
+        {/* Dynamic project picture */}
         <picture>
           {sources && sources.map(source => {
             const width = source.match(/\d+x/)[0].replace('x', '');
@@ -56,17 +58,25 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
           <img src={image} alt={name} />
         </picture>
       </div>
+
+      {/* Project meta data overlay */}
       <div className='uk-overlay uk-overlay-primary uk-position-bottom uk-text-justify uk-transition-slide-bottom uk-padding-small'>
         <ProjectName className='uk-margin-remove'>{name}</ProjectName>
         <Meta className=''>{description}</Meta>
         <Meta className='uk-text-right uk-margin-small-top'>{_for}</Meta>
       </div>
+
+      {/* Project link overlay */}
       <Overlay className='uk-overlay uk-overlay-primary uk-position-cover'>
         <div data-uk-grid>
+          
+          {/* Active site link */}
           <a href={link}>
             <p className='uk-icon-button' data-uk-icon='icon: world; ratio: 2'></p>
             <p>Site</p>
           </a>
+
+          {/* Repository link */}
           <a href={repo}>
             <p className='uk-icon-button'  data-uk-icon='icon: code; ratio: 2'></p>
             <p>Repo</p>
@@ -77,12 +87,15 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
   );
 }
 
-
-
+/**
+ * Featured project component
+ */
 export default () => {
 
+  // Filtered projects that are marked featured
   const featuredProjects = projects.filter(project => project.featured);
 
+  // Styled navigation button
   const SlideNav = styled.button`
     opacity: 0.2;
     transition: all 450ms ease-out;
@@ -97,8 +110,10 @@ export default () => {
 
   return (
     <Page>
+      {/* Title */}
       <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
+      {/* Featured projects design */}
       <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
         <div className='uk-position-relative uk-padding-small uk-margin-remove'>
 
@@ -111,9 +126,10 @@ export default () => {
           <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
           <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></SlideNav>
         </div>
+        
+        {/* Dotnav navigation */}
         <ul className='uk-slideshow-nav uk-dotnav uk-flex-center uk-margin-remove'></ul>
       </div>
-
     </Page>
   )
 }

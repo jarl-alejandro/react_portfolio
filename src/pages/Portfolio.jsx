@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import Page from '../templates/Page';
 import projects from '../data/projects';
-
 import ProjectCard from '../components/ProjectCard';
 import Dropdown from '../components/Dropdown';
 
-
+//#region styled_components
 
 const Gallery = styled.section`
   display: flex;
@@ -48,7 +47,6 @@ const Thumbnails = styled.div`
   }
 `
 
-
 const Thumbnail = styled.img`
 width: 50px;
 height: 50px;
@@ -70,44 +68,60 @@ const MainView = styled.div`
   }
 `;
 
+//#endregion
+
 export default class extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      _projects: projects,
-      filteredProjects: projects,
-      onMain: null
+      _projects: projects,        // Original project list   
+      filteredProjects: projects, // Filtered project lists
+      onMain: null                // Project detail controller
     }
   }
 
+  /**
+   * Handler function for dropdown menu
+   * @param {Object}  e Event object
+   */
   handleChange = (e) => {
-    const value = e.target.value;
+    const value = e.target.value; // Selected value
 
+    // If value is not empty string
     if (value) {
+
+      // Filter list based on selected value
       this.setState(({ _projects }) => ({
         filteredProjects: _projects.filter(project => project.languages.concat(project.frameworks, project.utilities).includes(value))
       }))
     }
     else
+      // Reset filtered list to original list
       this.setState(({ _projects }) => ({ filteredProjects: _projects }));
   }
 
+  /**
+   * Used for setting the project to be displayed in detail area
+   * @param {Object}  onMain  The project object to render details
+   */
   getMainImage = (onMain) => {
-    this.setState({ onMain });
+    this.setState({ onMain });  // Set the project to main view
   }
 
   render = () => {
 
+    // Destructure the state for use
     const { filteredProjects, _projects, onMain } = this.state;
 
+    // Make single list for technologies used in all the projects
     const tags = _projects
       .map(project => project.languages.concat(project.frameworks, project.utilities))
       .reduce((acc, project) => acc.concat(project), [])
       .reduce((acc, tag) => !acc.includes(tag) ? acc.concat(tag) : acc, [])
       .sort((a, b) => a > b);
     
-    tags.unshift('');
+    // tags.unshift('');
 
     return (
       <Page title='Portfolio'>

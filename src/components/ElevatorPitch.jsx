@@ -28,10 +28,6 @@ const Lead = styled.span`
   color: red;
 `;
 
-// const AdLib = styled.span`
-
-// `;
-
 const blink = keyframes`
   from, to {
     color: transparent;
@@ -330,25 +326,41 @@ export default class ElevatorPitch extends Component {
     const { done, currentLead, currentAdWord } = this.state;
     return (
       <div id='hero' className='uk-inline'>
+
+        {/* Hero image for backdrop */}
         <Hero data-src={computer} width='100%' height='100%' alt="Computer desk" data-uk-img />
+
+        {/* Show the entire pitch when animation is done */}
         {
           done &&
           <>
+
+            {/* Pitch string container */}
             <Complete className='uk-overlay uk-overlay-primary uk-position-bottom uk-animation-slide-bottom'>
               <p>{this.pitch.complete}</p>
             </Complete>
+
+            {/* Reset animation button */}
             <button className='uk-position-bottom-right uk-padding-small uk-animation-slide-right' data-uk-icon='refresh' onClick={this.restartAdLib}></button>
           </>
         }
 
+        {/* Animation is active */}
         {
           !done &&
           <div className='uk-overlay uk-position-bottom'>
+            {/* Phrase container */}
             <Line>
+
+              {/* Lead string container */}
               <Lead>
                 <Type isVisible={this.state.leadWordVisible} words={`${currentLead} `} />
               </Lead>
+
+              {/* Trailing string container */}
               <Type isVisible={this.state.adWordVisible} words={currentAdWord} />
+
+              {/* Blinking cursor */}
               <Blinker>|</Blinker>
             </Line>
           </div>
@@ -399,7 +411,15 @@ const charPoses = {
  */
 const Type = ({ words, isVisible }) => (
   <PoseGroup>
-    <SplitText key='txt' initialPose='initial' wordPoses={wordPoses} charPoses={charPoses} pose={isVisible ? 'enter' : 'exit'}>{words}</SplitText>
+    <SplitText
+      key='txt'
+      initialPose='initial'
+      wordPoses={wordPoses}
+      charPoses={charPoses}
+      pose={isVisible ? 'enter' : 'exit'}
+    >
+      {words}
+    </SplitText>
   </PoseGroup>
 )
 

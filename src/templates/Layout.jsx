@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Header from '../components/Header';
 
+//#region styled_components
 const Main = styled.main`
   position: absolute;
   // background: grey;
@@ -18,10 +19,12 @@ const Main = styled.main`
 `;
 
 const Background = styled.div`
-  width: 100vw;
-  height: 100vh;
+  // width: 100vw;
+  // height: 100vh;
   // background: grey;
 `;
+
+//#endregion
 
 export default ({ children }) => (
   // App backdrop

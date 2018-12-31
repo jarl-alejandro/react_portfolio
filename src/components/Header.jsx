@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import logo from '../icons/logo.svg';
-
 import Social from './Social';
 import NavItems from './NavItems';
 
+//#region styled_components
 const Nav = styled.nav`
   z-index: 2000;
   position: fixed;
@@ -39,6 +39,8 @@ const Logo = styled.img`
     transition: all 500ms linear 500ms;
   }
 `
+
+//#endregion
 
 export default () => (
   <header>

@@ -3,9 +3,11 @@ import {Link} from '@reach/router'
 import styled from 'styled-components';
 
 export default ({ path }) => {
-  const _path = path === '/' ? 'home' : path;
-  const linkName = _path.replace(/\//g, '');
 
+  const _path = path === '/' ? 'home' : path; // Check if path is root
+  const linkName = _path.replace(/\//g, '');  // Clean up pathname
+
+  //#region styled_components
 
   const icons = {
     home: 'home',
@@ -51,13 +53,12 @@ export default ({ path }) => {
       transform: rotate(-90deg);
       transition: transform 500ms linear 500ms;
     }
-
   `;
 
+  //#endregion
+
   return (
-    <Link
-      to={path}
-    >
+    <Link to={path}>
       <Icon linkName={linkName.toUpperCase()} data-uk-icon={icons[linkName]}></Icon>
     </Link>
   )
