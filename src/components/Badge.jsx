@@ -1,49 +1,45 @@
 import React from 'react';
+import styled from 'styled-components';
 
 export default ({ badge }) => {
 
   // Badge rendering data
   const badges = {
-    AJAX: { icon: 'ajax.svg' },
-    Angular: { icon: 'fab fa-angular' },
-    AngularJS: { icon: 'fab fa-angular', child: 'JS' },
-    API: { icon: 'api.svg' },
+    AJAX: { icon: 'ajax.png' },
+    Angular: { icon: 'ang.png' },
+    AngularJS: { icon: 'angjs.png' },
+    API: { icon: 'api.png' },
     Arduino: { icon: 'arduino.png' },
-    Assembly: { icon: 'asm.svg' },
-    Autoprefixer: { icon: 'fab fa-autoprefixer' },
-    Axios: { icon: 'axios.svg' },
-    A11y: { icon: 'fas fa-universal-access' },
-    Bootstrap: { icon: 'bootstrap.svg' },
-    C_Cpp: { icon: 'C.svg' },
-    Canvas: { icon: 'canvas.svg' },
-    CSS: { icon: 'fab fa-css3-alt' },
-    CSSLint: { icon: 'csslint.svg' },
-    Electronics: { icon: 'electronics.svg' },
-    ESLint: { icon: 'eslint.svg' },
-    Gulp: { icon: 'fab fa-gulp' },
-    HTML: { icon: 'fab fa-html5' },
-    HTMLHint: { icon: 'htmlhint.svg' },
-    JavaScript: { icon: 'fab fa-js' },
-    JQuery: { icon: 'jq.svg' },
-    Mapbox: { icon: 'mapbox.svg' },
-    MaterialUI: { icon: 'material.svg' },
-    Pug: { icon: 'pug.svg' },
-    React: { icon: 'fab fa-react' },
-    RFID: { icon: 'rfid.svg' },
-    Sass: { icon: 'fab fa-sass' },
-    Sensors: { icon: 'sensor.svg' },
-    ServiceWorker: { icon: 'sw.svg' },
-    Touchscreen: { icon: 'touch.svg' },
-    W3CSS: { icon: 'w3.svg' },
-    UIKit: { icon: 'uikit' },
-    FourSquare: { icon: 'foursquare' },
+    Assembly: { icon: 'asm.png' },
+    Axios: { icon: 'axios.png' },
+    A11y: { icon: 'a11y.png' },
+    Bootstrap: { icon: 'bootstrap.png' },
+    C: { icon: 'c.png' },
+    Cpp: { icon: 'cpp.png' },
+    C_Cpp: { icon: 'c_cpp.png' },
+    Canvas: { icon: 'canvas.png' },
+    CSS: { icon: 'css.png' },
+    CSSLint: { icon: 'csslint.png' },
+    Electronics: { icon: 'electronics.png' },
+    ESLint: { icon: 'eslint.png' },
+    Gulp: { icon: 'gulp.png' },
+    HTML: { icon: 'html.png' },
+    HTMLHint: { icon: 'htmlhint.png' },
+    JavaScript: { icon: 'js.png' },
+    JQuery: { icon: 'jq.png' },
+    Mapbox: { icon: 'mapbox.png' },
+    MaterialUI: { icon: 'material.png' },
+    Pug: { icon: 'pug.png' },
+    React: { icon: 'react.png' },
+    RFID: { icon: 'rfid.png' },
+    Sass: { icon: 'sass.png' },
+    Sensors: { icon: 'sensor.png' },
+    ServiceWorker: { icon: 'sw.png' },
+    Touchscreen: { icon: 'touch.png' },
+    W3CSS: { icon: 'w3.png' },
+    UIKit: { icon: 'uikit.png' },
+    FourSquare: { icon: 'foursquare.png' },
     other: { icon: 'uk-text-meta' },
-  }
-
-  // Badge styling object
-  const style = {
-    width: '2.5em',
-    height: '2.5em'
   }
 
   /**
@@ -52,54 +48,29 @@ export default ({ badge }) => {
   const getBadge = () => {
 
     //Sanitize badge string
-    const _badge = badge.replace('/', '_'); 
+    const _badge = badge.replace('/', '_');
 
     // Check if badge is supported
-    const match = badges[_badge] ? badges[_badge] : null; 
+    const match = badges[_badge] ? badges[_badge] : null;
 
     // Badge is supported, render decal
     if (match) {
 
-      // Check if supported by Font Awesome
-      const isFA = /fab|fas \w/.test(match.icon);
-
       // Check if supported by image link 
       const isLink = /[.svg|/.png|/.jpg]$/.test(match.icon);
 
-      // Font Awesome
-      if (isFA) {
-
-        // Check if additional string element
-        const inner = match.child ? match.child : null;
-
-        // Icon
-        return (
-          <i style={{fontSize: '2.5em' }} className={`${match.icon } ${inner && 'uk-margin-right-small'}`}>{inner}</i>
-        )
-      }
-
       // Link
-      else if (isLink) {
+      if (isLink) {
 
         // Get image
         const image = require(`../icons/${match.icon}`)
 
         // Image
         return (
-          <img style={style} src={image} alt={badge} />
-        );
-      }
-        
-      // Get from UIKit
-      else {
-
-        // UIKit icon
-        return (
-          <span style={style} data-uk-icon={`icon: ${match.icon}; ratio: 2`}></span>
+          <img src={image} alt={badge} />
         );
       }
     }
-
     // Badge not supported, print string
     else {
 
@@ -110,9 +81,17 @@ export default ({ badge }) => {
     }
   }
 
+  const Container = styled.span`
+    width: 1.25em;
+
+    @media screen and (min-width: 520px) {
+      width: initial;
+    }
+  `;
+
   return (
-    <span>
+    <Container>
       {getBadge()}
-    </span>
+    </Container>
   );
 }
