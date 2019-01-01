@@ -16,7 +16,7 @@ const Meta = styled.p`
   font-size: 90%;
 `;
 
-export default ({ name, image, for: _for, link, description, repo, languages, frameworks, utilities, thumbnail, sources }) => (
+export default ({ name, image, for: _for, link, description, repo, skills, thumbnail, sources }) => (
   <div className='uk-card uk-card-default'>
 
     {/* Card Header */}
@@ -91,7 +91,7 @@ export default ({ name, image, for: _for, link, description, repo, languages, fr
 
             {/* Badges: List of skills and badges */}
             <Info>
-              <Badges frameworks={frameworks} languages={languages} utilities={utilities} />
+              <Badges skills={skills} />
             </Info>
           </div>
         </li>

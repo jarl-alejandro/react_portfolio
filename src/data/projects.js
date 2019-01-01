@@ -16,17 +16,13 @@ const projects = [
       description: "React based location finder web app created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-Neighborhood_Map_App-/",
       link: "https://bloom305.github.io/FEND-Neighborhood_Map_App-/",
-      languages: [
+      skills: [
           "React",
           "MaterialUI",
-          "Mapbox"
-      ],
-      frameworks: [
+          "Mapbox",
           "API",
           "Axios",
           "FourSquare"
-      ],
-      utilities: [
       ]
   },
   {
@@ -40,14 +36,12 @@ const projects = [
       description: "React based book tracking web app created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-MyRead",
       link: "https://bloom305.github.io/FEND-MyRead/#/",
-      languages: [
+      skills: [
           "React",
-          "UIKit"
-      ],
-      frameworks: [
-          
-      ],
-      utilities: [
+          "UIKit",
+          "CSS",
+          "JavaScript",
+          "API"
       ]
   },
   {
@@ -61,22 +55,18 @@ const projects = [
       description: "A responsive, accessible, and offline first restaurant review webpage created for Udacity's Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-RestaurantReview",
       link: "https://bloom305.github.io/FEND-RestaurantReview/index.html",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
           "JavaScript",
-      ],
-      frameworks: [
           "AngularJS",
           "API",
-          "ServiceWorker"
-      ],
-      utilities: [
+          "ServiceWorker",
           "A11y",
           "ESLint",
           "HTMLHint",
           "CSSLint"
-      ]
+      ],
   },
   {
       featured: false,
@@ -89,19 +79,15 @@ const projects = [
       description: "Frogger clone created for Udacity's Front End Developer Nano-degree.",
       repo: "https://github.com/bloom305/FEND-ArcadeGame",
       link: "https://bloom305.github.io/FEND-ArcadeGame/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "Canvas",
           "ESLint",
-          "HTMLHint"
-      ],
-      utilities: [
+          "HTMLHint",
           "CSSLint",
-      ]
+      ],
   },
   {
       featured: false,
@@ -114,19 +100,15 @@ const projects = [
       description: "Memory game application created for Udacity Front End Developer Nanodegree.",
       repo: "https://github.com/bloom305/FEND-MemoryGame",
       link: "https://bloom305.github.io/FEND-MemoryGame/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "Bootstrap",
           "ESLint",
-          "HTMLHint"
-      ],
-      utilities: [
+          "HTMLHint",
           "CSSLint",
-      ]
+      ],
   }, 
   {
       featured: false,
@@ -139,19 +121,14 @@ const projects = [
       description: "Single page portfolio created for Udacity Front End Developer Nano-degree.",
       repo: "https://github.com/bloom305/FEND-Portfolio",
       link: "https://bloom305.github.io/FEND-Portfolio/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
-
-      ],
-      utilities: [
+          "JavaScript",
           "ESLint",
           "HTMLHint",
           "CSSLint"
-      ]
+      ],
   }, 
   {
       featured: true,
@@ -164,16 +141,11 @@ const projects = [
       description: "A javascript based clock for tracking work and break durations. Developed for freecodecamp.com advanced front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
       link : "https://bloom305.github.io/FreeCodeCamp/Pomodoro_Clock/",
-      languages: [
+      skills: [
           "Pug",
           "Sass",
           "JavaScript"
       ],
-      frameworks: [
-          
-      ],
-      utilities: [
-      ]
   },
   {
       featured: true,
@@ -186,17 +158,11 @@ const projects = [
       description: "A javascript based usable calculator. Developed for freecodecamp.com advanced front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
       link: "https://bloom305.github.io/FreeCodeCamp/Calculator/",
-      languages: [
+      skills: [
           "HTML",
           "Sass",
           "JavaScript"
       ],
-      frameworks: [
-          
-      ],
-      utilities: [
-          
-      ]
   },
   {
       featured: false,
@@ -209,17 +175,13 @@ const projects = [
       description: "Todo list created for a CodeBuddies training session on AngularJS.",
       repo: "https://github.com/bloom305/Todo_List",
       link: "https://bloom305.github.io/Todo_List/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "Bootstrap",
           "AngularJS"
       ],
-      utilities: [
-      ]
   },
   {
       featured: false,
@@ -232,17 +194,12 @@ const projects = [
       description: "Pixel art drawer project created for Grow with Google Scholarship Challenge.",
       repo: "https://github.com/bloom305/pixeProject_GWG",
       link: "https://bloom305.github.io/pixeProject_GWG/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "JQuery"
       ],
-      utilities: [
-
-      ]
   },
   {
       featured: false,
@@ -255,18 +212,13 @@ const projects = [
       description: "A page to display Twitch.tv channel information using Twitch API. Developed for freecodecamp.com intermediate front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
       link: "https://bloom305.github.io/FreeCodeCamp/Twitch_Viewer/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "JQuery",
           "API"
       ],
-      utilities: [
-          
-      ]
   },
   {
       featured: false,
@@ -279,19 +231,15 @@ const projects = [
       description: "A page that gathered information via Wikipedia API. Developed for freecodecamp.com intermediate front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
       link: "https://bloom305.github.io/FreeCodeCamp/Wikipedia_Viewer/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "Bootstrap",
           "JQuery",
-          "AJAX"
-      ],
-      utilities: [
+          "AJAX",
           "API"
-      ]
+      ],
   },
   {
       featured: false,
@@ -304,18 +252,13 @@ const projects = [
       description: "An editable resume using AngularJS and styled with W3CSS.",
       repo: "https://github.com/bloom305/E-Resume_template",
       link: "https://bloom305.github.io/E-Resume_template/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "W3CSS",
           "AngularJS"
       ],
-      utilities: [
-
-      ]
   },
   {
       featured: false,
@@ -328,19 +271,15 @@ const projects = [
       description: "Asset management device developed for B.S. in Electronic Engineering Technology senior project at DeVry University.",
       repo: "https://github.com/bloom305/Senior_Project",
       link: "",
-      languages: [
+      skills: [
           "C/Cpp",
-          "Assembly"
-      ],
-      frameworks: [
+          "Assembly",
           "Arduino",
           "Electronics",
-          "Sensors"
-      ],
-      utilities: [
+          "Sensors",
           "Touchscreen",
           "RFID"
-      ]
+      ],
   },
   {
       featured: false,
@@ -353,17 +292,12 @@ const projects = [
       description: "A tribute page dedicated to Anthony Bourdain, created for freecodecamp.com basic front end development project.",
       repo: "https://github.com/bloom305/FreeCodeCamp",
       link: "https://bloom305.github.io/FreeCodeCamp/Tribute_Page/",
-      languages: [
+      skills: [
           "HTML",
           "CSS",
-          "JavaScript"
-      ],
-      frameworks: [
+          "JavaScript",
           "Bootstrap"
       ],
-      utilities: [
-          
-      ]
   }
 ]
 

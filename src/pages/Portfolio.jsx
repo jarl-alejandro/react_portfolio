@@ -116,7 +116,7 @@ export default class extends Component {
 
     // Make single list for technologies used in all the projects
     const tags = _projects
-      .map(project => project.languages.concat(project.frameworks, project.utilities))
+      .map(project => project.skills)
       .reduce((acc, project) => acc.concat(project), [])
       .reduce((acc, tag) => !acc.includes(tag) ? acc.concat(tag) : acc, [])
       .sort((a, b) => a > b);

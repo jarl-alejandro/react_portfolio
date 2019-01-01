@@ -2,9 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import Badge from './Badge';
 
-export default ({ languages, frameworks, utilities }) => {
- 
-  const badges = languages.concat(frameworks, utilities);
+export default ({ skills }) => {
+  console.log(skills)
+
+  const badges = skills.sort((a, b) => a > b);
 
   const BadgeContainer = styled.div`
     width: 100%;
