@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { PoseGroup } from 'react-pose'
 import SplitText from 'react-pose-text';
-import computer from '../images/computer.jpg';
+import computer from '../images/computer/computer.jpg';
+import computerUW from '../images/computer/computer_uw.jpg';
+import computer1080 from '../images/computer/computer_1080.jpg';
+import computer720 from '../images/computer/computer_720.jpg';
+import computer520 from '../images/computer/computer_520.jpg';
+import computerSmall from '../images/computer/computer_small.jpg';
 
 //#region style_components
 
@@ -39,7 +44,7 @@ const Blinker = styled.span`
 
 const Hero = styled.img`
   width: 100%;
-  height: 80vh;
+  // height: 80vh;
 `;
 
 //#endregion
@@ -63,6 +68,7 @@ export default class ElevatorPitch extends Component {
       done: false,            // Full pitch controller
     }
 
+    this.hero = React.createRef();
     this.pitch = props.pitch;
     this.write = null;        // For managing timed events
   }
@@ -308,8 +314,10 @@ export default class ElevatorPitch extends Component {
   componentDidMount() {
     const { done } = this.state;
 
-    if (!done)
+    if (!done) {
+      while (!this.hero);
       this.startAnimation();
+    }
   }
 
   componentWillUnmount = () => {
@@ -323,8 +331,18 @@ export default class ElevatorPitch extends Component {
     return (
       <div id='hero' className='uk-inline'>
 
+        {/* Responsive hero image */}
+        <picture>
+          <source media='(min-aspect-ratio: 16/10)' srcSet={computerUW} />
+          <source media='(max-aspect-ratio: 16/10) and (max-width: 1080px) and (min-width: 721px)' srcSet={computer1080} />
+          <source media='(max-aspect-ratio: 16/10) and (max-width: 720px) and (min-width: 521px)' srcSet={computer720} />
+          <source media='(max-width: 520px) and (min-width: 401px)' srcSet={computer520} />
+          <source media='(max-width: 400px)' srcSet={computerSmall} />
+          <img src={computer} alt='Hero Image' />
+        </picture>
+
         {/* Hero image for backdrop */}
-        <Hero data-src={computer} width='100%' height='100%' alt="Computer desk" data-uk-img />
+        {/* <Hero ref={this.hero} data-src={computer} alt="Computer desk" data-uk-img /> */}
 
         {/* Show the entire pitch when animation is done */}
         {
