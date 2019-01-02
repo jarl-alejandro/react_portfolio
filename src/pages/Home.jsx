@@ -1,8 +1,9 @@
 import React from 'react';
 import Page from '../templates/Page';
 import Elevator from '../components/ElevatorPitch';
-import pitch from '../data/elevator'
 import Featured from '../components/Featured';
+import pitch from '../data/elevator';
+import projects from '../data/projects';
 
 export default () => (
   <Page home scroll>
@@ -13,6 +14,6 @@ export default () => (
     <Elevator pitch={pitch} />
 
     {/* Featured projects sections */}
-    <Featured />
+    <Featured projects={projects} />
   </Page>
 )

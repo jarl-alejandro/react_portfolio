@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
 import Page from '../templates/Page';
-import projects from '../data/projects';
 
 /**
  * Slideshow item links overlay component
@@ -131,7 +129,7 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
 /**
  * Featured project component
  */
-export default () => {
+export default ({projects}) => {
 
   // Filtered projects that are marked featured
   const featuredProjects = projects.filter(project => project.featured);
