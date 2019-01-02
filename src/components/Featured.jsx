@@ -117,14 +117,13 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
       <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
         {/* Responsive project picture */}
         <ProjectImage name={name} image={image} sorces={sources} />
+
+        {/* Project meta data overlay */}
+        <MetaOverlay name={name} description={description} _for={_for} />
+
+        {/* Project links overlay */}
+        <LinksOverlay link={link} repo={repo} />
       </div>
-
-      {/* Project meta data overlay */}
-      <MetaOverlay name={name} description={description} _for={_for} />
-
-      {/* Project links overlay */}
-      <LinksOverlay link={link} repo={repo} />
-
     </li>
   );
 }
