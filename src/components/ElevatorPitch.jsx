@@ -42,11 +42,6 @@ const Blinker = styled.span`
   animation: ${blink} 1.5s linear infinite;
 `;
 
-const Hero = styled.img`
-  width: 100%;
-  // height: 80vh;
-`;
-
 //#endregion
 
 export default class ElevatorPitch extends Component {
@@ -338,7 +333,7 @@ export default class ElevatorPitch extends Component {
           <source media='(max-aspect-ratio: 16/10) and (max-width: 720px) and (min-width: 521px)' srcSet={computer720} />
           <source media='(max-width: 520px) and (min-width: 401px)' srcSet={computer520} />
           <source media='(max-width: 400px)' srcSet={computerSmall} />
-          <img src={computer} alt='Hero Image' />
+          <img src={computer} alt='Hero' />
         </picture>
 
         {/* Hero image for backdrop */}
