@@ -112,13 +112,21 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
               return <source key={source} media={`(min-aspect-ratio: ${width}/${height})`} srcSet={source}></source>
 
             } else {
-              const width = source.match(/\d+x/)[0].replace('x', '');
-        const max = Math.ceil(Number(width)).toString();
-        const min = Math.floor(Number(width) - 359).toString();
-        return <source key={source} media={`${Number(min) < 320 ? '' : `(min-width: ${min}px) and `}(max-width: ${max}px )`} srcSet={source} />
+              const width = Number(source.match(/\d+x/)[0].replace('x', ''));
+              if (width <= 1080 && width > 360) {
+                const max = Math.ceil(width).toString();
+                const min = Math.floor(width - 359).toString();
+                return <source key={source} media={`${Number(min) < 320 ? '' : `(min-width: ${min}px ) and `}(max-width: ${max}px )`} srcSet={source} />
+              }
+              else if (width > 1080) {
+                return <source key={source} media='(min-width: 1081px)' srcSet={source} />
+              }
+              else {
+                return <img key={source} src={source} alt={name} />
+              }
             }
           })}
-          <img src={image} alt={name} />
+          {/* <img src={image} alt={name} /> */}
         </picture>
       </div>
     </div>

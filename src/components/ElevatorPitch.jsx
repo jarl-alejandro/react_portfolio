@@ -329,11 +329,12 @@ export default class ElevatorPitch extends Component {
         {/* Responsive hero image */}
         <picture>
           <source media='(min-aspect-ratio: 16/10)' srcSet={computerUW} />
+          <source media='(max-aspect-ratio: 16/10) and (min-width: 1081px)' srcSet={computer} />
           <source media='(max-aspect-ratio: 16/10) and (max-width: 1080px) and (min-width: 721px)' srcSet={computer1080} />
           <source media='(max-aspect-ratio: 16/10) and (max-width: 720px) and (min-width: 521px)' srcSet={computer720} />
           <source media='(max-width: 520px) and (min-width: 401px)' srcSet={computer520} />
-          <source media='(max-width: 400px)' srcSet={computerSmall} />
-          <img src={computer} alt='Hero' />
+          {/* <source media='(max-width: 400px)' srcSet={computerSmall} /> */}
+          <img src={computerSmall} alt='Hero' />
         </picture>
 
         {/* Hero image for backdrop */}
