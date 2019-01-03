@@ -95,10 +95,13 @@ const MetaOverlay = ({ name, description, _for }) => {
 const ProjectImage = ({ sources, image, name }) => (
   <picture>
     {sources && sources.map(source => {
-      const width = source.match(/\d+x/)[0].replace('x', '');
-      const min = Number(Math.floor(width * 0.70)).toString();
-      const max = Number(Math.ceil(width * 1.15)).toString();
-      return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+      if (!/16x9/.test(source)) {
+        const width = source.match(/\d+x/)[0].replace('x', '');
+        const min = Math.floor(Number(width * 0.70)).toString();
+        const max = Math.ceil(Number(width * 1.15)).toString();
+        return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+      }
+      else return '';
     })}
     <img src={image} alt={name} />
   </picture>
@@ -112,16 +115,18 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
 
   return (
     <li>
-      <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
-        {/* Responsive project picture */}
-        <ProjectImage name={name} image={image} sorces={sources} />
+      {sources &&
+        <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
+          {/* Responsive project picture */}
+          <ProjectImage name={name} image={image} sources={sources} />
 
-        {/* Project meta data overlay */}
-        <MetaOverlay name={name} description={description} _for={_for} />
+          {/* Project meta data overlay */}
+          <MetaOverlay name={name} description={description} _for={_for} />
 
-        {/* Project links overlay */}
-        <LinksOverlay link={link} repo={repo} />
-      </div>
+          {/* Project links overlay */}
+          <LinksOverlay link={link} repo={repo} />
+        </div>
+      }
     </li>
   );
 }
