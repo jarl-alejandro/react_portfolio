@@ -63,7 +63,6 @@ export default class ElevatorPitch extends Component {
       done: false,            // Full pitch controller
     }
 
-    this.hero = React.createRef();
     this.pitch = props.pitch;
     this.write = null;        // For managing timed events
   }
@@ -276,8 +275,9 @@ export default class ElevatorPitch extends Component {
   /**
    * Control for starting the animation
    */
-  startAnimation = () => {
-    this.cycleAdWords();
+  startAnimation = async() => {
+    this.write = await this.delay(this.cycleAdWords, 1, 2000);
+    // this.cycleAdWords();
   }
 
   /**
@@ -310,7 +310,6 @@ export default class ElevatorPitch extends Component {
     const { done } = this.state;
 
     if (!done) {
-      while (!this.hero);
       this.startAnimation();
     }
   }
