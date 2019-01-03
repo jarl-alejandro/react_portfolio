@@ -113,9 +113,9 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
 
             } else {
               const width = source.match(/\d+x/)[0].replace('x', '');
-              const min = Number(width * 0.70).toString();
-              const max = Number(width * 1.15).toString();
-              return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+        const max = Math.ceil(Number(width)).toString();
+        const min = Math.floor(Number(width) - 359).toString();
+        return <source key={source} media={`${Number(min) < 320 ? '' : `(min-width: ${min}px) and `}(max-width: ${max}px )`} srcSet={source} />
             }
           })}
           <img src={image} alt={name} />

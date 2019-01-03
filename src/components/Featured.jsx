@@ -97,9 +97,9 @@ const ProjectImage = ({ sources, image, name }) => (
     {sources && sources.map(source => {
       if (!/16x9/.test(source)) {
         const width = source.match(/\d+x/)[0].replace('x', '');
-        const min = Math.floor(Number(width * 0.70)).toString();
-        const max = Math.ceil(Number(width * 1.15)).toString();
-        return <source key={source} media={`(min-width: ${min}px ) and (max-width: ${max}px )`} srcSet={source} />
+        const max = Math.ceil(Number(width)).toString();
+        const min = Math.floor(Number(width) - 359).toString();
+        return <source key={source} media={`${Number(min) < 320 ? '' : `(min-width: ${min}px ) and `}(max-width: ${max}px )`} srcSet={source} />
       }
       else return '';
     })}
