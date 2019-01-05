@@ -68,6 +68,8 @@ const PosedRouter = ({ children }) => (
           {/* Head data */}
           <Helmet>
 
+          <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Cinzel+Decorative|Fredericka+the+Great|Gloria+Hallelujah|Indie+Flower|Pacifico|Special+Elite" rel="stylesheet" />
+
             {/* Change title based on site page */}
             <title>{pathname ? `${pathname} | ` : ''}Rodrick Bloomfield</title>
           </Helmet>
