@@ -36,11 +36,11 @@ export default ({ path }) => {
     }
 
    &:hover {
-     color: red;
+     color: darkred;
      
      svg:first-child {
        opacity: 0;
-       transition: opacity 500ms ease-out;
+       transition: opacity 250ms ease-out;
       }
       
       &:after {

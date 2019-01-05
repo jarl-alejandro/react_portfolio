@@ -10,16 +10,20 @@ const Nav = styled.nav`
   position: fixed;
   padding: 0 1em 0 5px;
   box-sizing: border-box;
-  background: white;
-  border: 1px solid grey;
+  background: #dcd0c0;
+  border: 1px solid #dcd0c0;
+  box-shadow: 0 0 5px 1px #373737, 0 2px 30px 2px #8b8b8b inset;
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 3em;
-
   transform-origin: left bottom;
   width: 100%;
   transition: all 500ms ease-in;
+
+  &  a {
+    color: #373737;
+  }
 
   @media screen and (min-width: 960px) {
     width: 100vh;

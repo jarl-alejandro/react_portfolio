@@ -79,7 +79,7 @@ export default () => {
     transition: transform 500ms linear 500ms;
 
     &:hover {
-      color: red;
+      color: darkred;
     }
     
     @media screen and (min-width: 960px) {
