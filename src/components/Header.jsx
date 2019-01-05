@@ -12,7 +12,7 @@ const Nav = styled.nav`
   box-sizing: border-box;
   background: #dcd0c0;
   border: 1px solid #dcd0c0;
-  box-shadow: 0 0 5px 1px #373737, 0 2px 30px 2px #8b8b8b inset;
+  box-shadow: 0 0 5px 1px #373737, 0 2px 15px 2px #8b8b8b inset;
   display: flex;
   justify-content: space-between;
   align-items: center;

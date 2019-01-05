@@ -57,7 +57,6 @@ const MetaOverlay = ({ name, description, _for }) => {
     width: 100%;
   `;
 
-
   const ProjectName = styled.h3`
     font-size: 120%;
 
@@ -128,7 +127,7 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
   return (
     <Item>
       {sources &&
-        <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 1, 1, 0.6;'>
+        <div className='uk-position-cover'>
           {/* Responsive project picture */}
           <ProjectImage name={name} image={image} sources={sources} />
 
@@ -152,7 +151,7 @@ export default ({ projects }) => {
   const featuredProjects = projects.filter(project => project.featured);
 
   const Carousel = styled.ul`
-    box-shadow: 5px 10px 20px 0 #373737;
+    box-shadow: 5px 10px 15px 0 #373737;
     border: 15px ridge #c0b283;
   `;
 
@@ -176,7 +175,7 @@ export default ({ projects }) => {
       <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
       {/* Featured projects design */}
-      <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover'>
+      <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover; animation: push'>
         <div className='uk-position-relative uk-padding-small uk-margin-remove'>
 
           {/* Slide show list */}
