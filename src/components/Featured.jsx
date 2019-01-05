@@ -158,7 +158,8 @@ export default ({ projects }) => {
 
   // Styled navigation button
   const SlideNav = styled.button`
-    opacity: 0.2;
+    opacity: 0.6;
+    color: #373737;
     transition: all 450ms ease-out;
     
     &:hover {
