@@ -93,7 +93,7 @@ export default class extends Component {
 
       // Filter list based on selected value
       this.setState(({ _projects }) => ({
-        filteredProjects: _projects.filter(project => project.languages.concat(project.frameworks, project.utilities).includes(value))
+        filteredProjects: _projects.filter(project => project.skills.includes(value))
       }))
     }
     else

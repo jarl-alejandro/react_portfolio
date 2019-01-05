@@ -120,10 +120,15 @@ const ProjectImage = ({ sources, image, name }) => (
  */
 const SlideShowItem = ({ name, description, for: _for, image, link, repo, sources }) => {
 
+  const Item = styled.li`
+    border: 5px inset #c0b283;
+    background: white;
+  `;
+
   return (
-    <li>
+    <Item>
       {sources &&
-        <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 0.2, 1, 0.2;'>
+        <div className='uk-position-cover' data-uk-slideshow-parallax='scale: 1, 1, 0.6;'>
           {/* Responsive project picture */}
           <ProjectImage name={name} image={image} sources={sources} />
 
@@ -134,17 +139,22 @@ const SlideShowItem = ({ name, description, for: _for, image, link, repo, source
           <LinksOverlay link={link} repo={repo} />
         </div>
       }
-    </li>
+    </Item>
   );
 }
 
 /**
  * Featured project component
  */
-export default ({projects}) => {
+export default ({ projects }) => {
 
   // Filtered projects that are marked featured
   const featuredProjects = projects.filter(project => project.featured);
+
+  const Carousel = styled.ul`
+    box-shadow: 5px 10px 20px 0 #373737;
+    border: 15px ridge #c0b283;
+  `;
 
   // Styled navigation button
   const SlideNav = styled.button`
@@ -153,7 +163,7 @@ export default ({projects}) => {
     
     &:hover {
       opacity: 1;
-      color: black;
+      color: darkred;
       transform: translate(${({ direction }) => direction === 'previous' ? '' : '-'}0.25em, -2.5em) scale(1.5);
       transition: all 450ms ease-in;
     }
@@ -169,9 +179,9 @@ export default ({projects}) => {
         <div className='uk-position-relative uk-padding-small uk-margin-remove'>
 
           {/* Slide show list */}
-          <ul className='uk-slideshow-items'>
+          <Carousel className='uk-slideshow-items'>
             {featuredProjects.map(project => (<SlideShowItem key={project.name} {...project} />))}
-          </ul>
+          </Carousel>
 
           {/* Slideshow Nav */}
           <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
