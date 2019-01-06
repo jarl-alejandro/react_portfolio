@@ -5,6 +5,7 @@ import Page from '../templates/Page';
 import projects from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
 import Dropdown from '../components/Dropdown';
+import Element from '../components/Element';
 
 //#region styled_components
 
@@ -169,8 +170,8 @@ export default class extends Component {
         <Project key={project.name}>
           <ProjectCard {...project} />
         </Project>);
-    
-    return display.length !== 0 ? display : <Project key='default'><ProjectCard {..._projects[0]}/></Project>
+
+    return display.length !== 0 ? display : <Project key='default'><ProjectCard {..._projects[0]} /></Project>
   }
 
   //#endregion
@@ -191,46 +192,48 @@ export default class extends Component {
 
     return (
       <Page title='Portfolio'>
-        {/* Portfolio page content */}
-        <Gallery>
+        <Element custom='body'>
+          {/* Portfolio page content */}
+          <Gallery>
 
-          {/* Portfolio selection window*/}
-          <SelectorView>
+            {/* Portfolio selection window*/}
+            <SelectorView>
 
-            {/* Portfolio filter selector */}
-            <Dropdown tags={tags} handleChange={this.handleChange} />
+              {/* Portfolio filter selector */}
+              <Dropdown tags={tags} handleChange={this.handleChange} />
 
 
-            {/* Project selector */}
-            <Thumbnails>
+              {/* Project selector */}
+              <Thumbnails>
+                {
+                  filteredProjects
+                    .map(
+                      project =>
+                        <Thumbnail
+                          key={project.name}
+                          data-src={project.thumbnail ? project.thumbnail : project.image}
+                          alt={project.name}
+                          onClick={_ => this.getProject(project)}
+                          data-uk-img
+                          width='50'
+                          height='50'
+                        />
+                    )
+                }
+              </Thumbnails>
+            </SelectorView>
+
+            {/* Project view window */}
+            <MainView>
               {
-                filteredProjects
-                  .map(
-                    project =>
-                      <Thumbnail
-                        key={project.name}
-                        data-src={project.thumbnail ? project.thumbnail : project.image}
-                        alt={project.name}
-                        onClick={_ => this.getProject(project)}
-                        data-uk-img
-                        width='50'
-                        height='50'
-                      />
-                  )
+                // Project selection animation
+                <PoseGroup preEnterPose='initial'>
+                  {this.getMain(onMain, _projects)}
+                </PoseGroup>
               }
-            </Thumbnails>
-          </SelectorView>
-
-          {/* Project view window */}
-          <MainView>
-            {
-              // Project selection animation
-              <PoseGroup preEnterPose='initial'>
-                {this.getMain(onMain, _projects)}
-              </PoseGroup>
-            }
-          </MainView>
-        </Gallery>
+            </MainView>
+          </Gallery>
+        </Element>
       </Page>
     )
   }

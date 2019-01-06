@@ -5,7 +5,7 @@ import Element from '../components/Element';
 export default () => (
   <Page title='About Me' scroll>
 
-    <Element as='article'>
+    <Element custom='body'>
 
       {/* Section 1 */}
       <Element as='h2'>Past</Element>

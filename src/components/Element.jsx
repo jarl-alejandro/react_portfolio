@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { css } from 'styled-components';
 
-export default ({ as, children }) => {
+export default ({ as, custom, children }) => {
 
   //#region styled_components
 
@@ -26,7 +26,7 @@ text-align: justify;
 }
 `;
 
-const divTagMixin = css`
+  const divTagMixin = css`
 
 :before {
   display: block;
@@ -37,6 +37,16 @@ const divTagMixin = css`
   margin: 0 1em;
 }
 `;
+
+  const customTagMixin = css`
+  :before {
+    display: block;
+  }
+  
+  :after {
+    display: block;
+  } 
+  `;
 
   const aTagMixin = css`
 color: #373737;
@@ -64,12 +74,14 @@ color: #373737;
       case 'h2':
       case 'p':
         return writingTagMixin;
-      default:
+      case 'div':
         return divTagMixin;
+      default:
+        return customTagMixin;
     }
   }
 
-  const getContent = (el) => el === 'article' ? 'body' : el;
+  const getContent = (el, custom) => custom ? custom : el === 'article' ? 'body' : el;
 
   const Tag = styled.div`
 
@@ -77,17 +89,17 @@ ${tagMixin}
 ${({ as }) => getMixin(as)}
 
 :before {
-  content: '<${({ as }) => getContent(as)}>';
+  content: '<${({ as, custom }) => getContent(as, custom)}>';
 }
 :after {
-  content: '</${({ as }) => getContent(as)}>';
+  content: '</${({ as, custom }) => getContent(as, custom)}>';
 } 
 `;
 
   //#endregion
 
   return (
-    <Tag as={as}>
+    <Tag as={as} custom={custom}>
       {children}
     </Tag>
   )

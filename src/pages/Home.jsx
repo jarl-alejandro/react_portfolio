@@ -10,7 +10,7 @@ export default () => (
   <Page home scroll title='Getting To Know Me'>
     {/* Subtitle */}
 
-    <Element as='article'>
+    <Element custom='body'>
 
       <Element as='div'>
         {/* Elevator pitch hero image component */}
