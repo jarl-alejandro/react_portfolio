@@ -6,9 +6,9 @@ import pitch from '../data/elevator';
 import projects from '../data/projects';
 
 export default () => (
-  <Page home scroll>
+  <Page home scroll title='Getting To Know Me'>
     {/* Subtitle */}
-    <h2 className='uk-heading-line uk-text-center'><span>Getting To Know Me</span></h2>
+    {/* <h2 className='uk-heading-line uk-text-center'><span>Getting To Know Me</span></h2> */}
 
     {/* Elevator pitch hero image component */}
     <Elevator pitch={pitch} />
