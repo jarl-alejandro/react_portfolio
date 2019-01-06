@@ -4,6 +4,10 @@ import Badges from './Badges';
 
 //#region styled_components
 
+const Card = styled.div`
+  box-shadow: 0 28px 50px #37373759;
+`;
+
 const Info = styled.div`
   width: 100%;
 `;
@@ -14,10 +18,32 @@ const Title = styled.p`
 
 const Meta = styled.p`
   font-size: 90%;
+  color: #373737b0;
+`;
+
+const Link = styled.a``;
+
+const IconButton = styled.span`
+  background: #f4f4f4;
+  color: #dcd0c0;
+  border-radius: 100%;
+
+  ${Link}:hover & {
+    background: #c0b283;
+    color: #f4f4f4; 
+  }
+`;
+
+const LinkMeta = styled.span`
+  color: #373737b0;
+  text-align: center;
+  ${Link}:hover & {
+    color: #c0b283;
+  }
 `;
 
 export default ({ name, image, for: _for, link, description, repo, skills, thumbnail, sources }) => (
-  <div className='uk-card uk-card-default'>
+  <Card className='uk-card uk-card-default uk-border-rounded'>
 
     {/* Card Header */}
     <div className='uk-card-header'>
@@ -34,7 +60,7 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
           {/* Title/meta */}
           <Info>
             <Title className='uk-card-title uk-margin-remove-bottom'>{name}</Title>
-            <Meta style={{ fontSize: '90%' }} className='uk-text-meta uk-margin-remove-top'>{_for}</Meta>
+            <Meta style={{ fontSize: '90%' }} className='uk-margin-remove-top'>{_for}</Meta>
           </Info>
 
           {/* Project links */}
@@ -44,25 +70,25 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
             {link && (
               <>
                 <div data-uk-lightbox>
-                  <a className='uk-margin-small-right uk-flex uk-flex-column uk-link-text' href={link} data-caption={description} data-type='iframe' data-alt={name} >
-                    <span className='uk-icon-button' data-uk-icon='play'></span>
-                    <span className='uk-text-center uk-text-meta'>View</span>
-                  </a>
+                  <Link className='uk-margin-small-right uk-flex uk-flex-column uk-link-text' href={link} data-caption={description} data-type='iframe' data-alt={name} >
+                    <IconButton className='uk-icon-button' data-uk-icon='play'></IconButton>
+                    <LinkMeta>View</LinkMeta>
+                  </Link>
                 </div>
 
                 {/* Site Link */}
-                <a className='uk-margin-small-right uk-flex uk-flex-column uk-link-text' href={link} data-caption={description} data-type='iframe' data-alt={name} >
-                  <span className='uk-icon-button' data-uk-icon='world'></span>
-                  <span className='uk-text-center uk-text-meta'>Site</span>
-                </a>
+                <Link className='uk-margin-small-right uk-flex uk-flex-column uk-link-text' href={link} data-caption={description} data-type='iframe' data-alt={name} >
+                  <IconButton className='uk-icon-button' data-uk-icon='world'></IconButton>
+                  <LinkMeta>Site</LinkMeta>
+                </Link>
               </>
             )}
 
             {/* Github repo link */}
-            <a className='uk-flex uk-flex-column uk-link-text' href={repo} >
-              <span className='uk-icon-button' data-uk-icon='github'></span>
-              <span className='uk-text-center uk-text-meta'>Repo</span>
-            </a>
+            <Link className='uk-flex uk-flex-column uk-link-text' href={repo} >
+              <IconButton className='uk-icon-button' data-uk-icon='github'></IconButton>
+              <LinkMeta>Repo</LinkMeta>
+            </Link>
           </div>
         </div>
       </div>
@@ -76,10 +102,10 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
         <li>
 
           {/* Drawer toggle */}
-          <button id='accordion-activate' className='uk-button uk-button-text'>
-            <span>Details</span>
-            <span className='uk-margin-small-left' data-uk-icon='info'></span>
-          </button>
+          <Link as='button' id='accordion-activate' className='uk-button uk-button-text'>
+            <LinkMeta>Details</LinkMeta>
+            <IconButton className='uk-margin-small-left' data-uk-icon='info'></IconButton>
+          </Link>
 
           {/* Project details */}
           <div className="uk-accordion-content">
@@ -130,5 +156,5 @@ export default ({ name, image, for: _for, link, description, repo, skills, thumb
         </picture>
       </div>
     </div>
-  </div>
+  </Card>
 )
