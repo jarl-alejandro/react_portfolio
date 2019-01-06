@@ -10,6 +10,10 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+h1, h2 {
+  font-family: 'Special Elite', cursive;
+}
+
 /* Adjust lightbox to account for header on smaller screens */
 .uk-lightbox {
   margin-top: 3em;

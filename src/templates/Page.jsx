@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const Section = styled.section`
-  padding: ${({home}) => home ? '3em 0' : '3em 1em' };
+  padding: ${({home}) => home ? '4em 0' : '4em 1em' };
   transition: padding 500ms ease-in;
   max-height: 100vh;
   
