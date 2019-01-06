@@ -17,6 +17,7 @@ export default ({ path }) => {
 
   const Icon = styled.span`
     // color: white;
+    font-family: 'Fredericka the Great', cursive;
     box-sizing: border-box;
     text-align: center;
     margin-top: 0.5em;
