@@ -41,7 +41,8 @@ const Thumbnails = styled.div`
   display: flex;
   align-items: center;
   flex-wrap: nowrap;
-  overflow-x auto;
+  overflow-x: auto;
+  overflow-y: hidden;
 
   height: 100px;
   border: 10px inset #c0b283;
