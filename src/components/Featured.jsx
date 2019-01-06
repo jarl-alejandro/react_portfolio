@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import Page from '../templates/Page';
+import Element from '../components/Element';
 
 /**
  * Slideshow item links overlay component
@@ -174,23 +175,25 @@ export default ({ projects }) => {
       {/* Title */}
       <h2 className='uk-heading-line uk-text-center'><span>Featured Projects</span></h2>
 
-      {/* Featured projects design */}
-      <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover; animation: push'>
-        <div className='uk-position-relative uk-padding-small uk-margin-remove'>
+      <Element as='div'>
+        {/* Featured projects design */}
+        <div className='uk-container uk-padding-remove' data-uk-slideshow=' autoplay: true; autoplay-interval: 5000; pause-on-hover; animation: push'>
+          <div className='uk-position-relative uk-padding-small uk-margin-remove'>
 
-          {/* Slide show list */}
-          <Carousel className='uk-slideshow-items'>
-            {featuredProjects.map(project => (<SlideShowItem key={project.name} {...project} />))}
-          </Carousel>
+            {/* Slide show list */}
+            <Carousel className='uk-slideshow-items'>
+              {featuredProjects.map(project => (<SlideShowItem key={project.name} {...project} />))}
+            </Carousel>
 
-          {/* Slideshow Nav */}
-          <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
-          <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></SlideNav>
+            {/* Slideshow Nav */}
+            <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
+            <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></SlideNav>
+          </div>
+
+          {/* Dotnav navigation */}
+          <ul className='uk-slideshow-nav uk-dotnav uk-flex-center uk-margin-remove'></ul>
         </div>
-
-        {/* Dotnav navigation */}
-        <ul className='uk-slideshow-nav uk-dotnav uk-flex-center uk-margin-remove'></ul>
-      </div>
+      </Element>
     </Page>
   )
 }

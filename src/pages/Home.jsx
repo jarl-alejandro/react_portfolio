@@ -4,16 +4,23 @@ import Elevator from '../components/ElevatorPitch';
 import Featured from '../components/Featured';
 import pitch from '../data/elevator';
 import projects from '../data/projects';
+import Element from '../components/Element';
 
 export default () => (
   <Page home scroll title='Getting To Know Me'>
     {/* Subtitle */}
-    {/* <h2 className='uk-heading-line uk-text-center'><span>Getting To Know Me</span></h2> */}
 
-    {/* Elevator pitch hero image component */}
-    <Elevator pitch={pitch} />
+    <Element as='article'>
 
-    {/* Featured projects sections */}
-    <Featured projects={projects} />
+      <Element as='div'>
+        {/* Elevator pitch hero image component */}
+        <Elevator pitch={pitch} />
+      </Element>
+
+      {/* Featured projects sections */}
+      <Featured projects={projects} />
+
+    </Element>
+
   </Page>
 )

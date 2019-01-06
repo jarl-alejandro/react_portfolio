@@ -68,7 +68,7 @@ const PosedRouter = ({ children }) => (
           {/* Head data */}
           <Helmet>
 
-          <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Fredericka+the+Great|Indie+Flower|Special+Elite" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Indie+Flower|Special+Elite" rel="stylesheet" />
 
             {/* Change title based on site page */}
             <title>{pathname ? `${pathname} | ` : ''}Rodrick Bloomfield</title>
