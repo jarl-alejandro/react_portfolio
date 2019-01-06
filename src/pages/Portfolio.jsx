@@ -41,7 +41,6 @@ const Thumbnails = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   overflow-x auto;
-  // overflow-y: auto;
 
   height: 100px;
   border: 10px inset #c0b283;
@@ -52,11 +51,7 @@ const Thumbnails = styled.div`
   
   @media screen and (min-width: 960px) {
     height: 80vh;
-    // display: block;
     flex-direction: column;
-    // flex-wrap: wrap;
-    // align-items: flex-start;
-    // overflow-x: auto;
     overflow-y: auto;
   }
 
@@ -77,13 +72,19 @@ border-radius: 10%;
 }
 `;
 
-const MainView = styled.div` 
+const MainView = styled.div`
   margin: 20px;
+  min-width: 50%;
   max-width: 100%;
-
+  align-self: center;
+  
   @media screen and (min-width: 960px) {
+    width: 75%;
+  }
+
+  @media screen and (min-aspect-ratio: 16/9) {
+    width: inherit;
     max-width: 75%;
-    align-self: center;
   }
 `;
 
@@ -139,7 +140,7 @@ export default class extends Component {
       .reduce((acc, project) => acc.concat(project), [])
       .reduce((acc, tag) => !acc.includes(tag) ? acc.concat(tag) : acc, [])
       .sort((a, b) => a > b);
-    
+
     // tags.unshift('');
 
     return (
@@ -176,12 +177,15 @@ export default class extends Component {
 
           {/* Project view window */}
           <MainView>
-            {
-              // Is project selected
-              onMain
-                ? <ProjectCard {...onMain} />       // Selected project
-                : <ProjectCard {...projects[0]} />  // Default: First listed project
-            }
+            <div>
+              {
+                // Is project selected
+                onMain
+                  ? <ProjectCard {...onMain} />       // Selected project
+                  : <ProjectCard {...projects[0]} />  // Default: First listed project
+              }
+            </div>
+
           </MainView>
         </Gallery>
       </Page>

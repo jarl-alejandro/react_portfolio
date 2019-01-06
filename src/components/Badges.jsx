@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import Badge from './Badge';
 
 export default ({ skills }) => {
-  console.log(skills)
 
   const badges = skills.sort((a, b) => a > b);
 
