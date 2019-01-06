@@ -192,7 +192,6 @@ export default class extends Component {
 
     return (
       <Page title='Portfolio'>
-        <Element custom='body'>
           {/* Portfolio page content */}
           <Gallery>
 
@@ -233,7 +232,6 @@ export default class extends Component {
               }
             </MainView>
           </Gallery>
-        </Element>
       </Page>
     )
   }
