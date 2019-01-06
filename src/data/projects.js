@@ -1,5 +1,5 @@
 
-const sizes = ['1920x960', '1080x540', '720x360', '360x180', '16x9'];
+const sizes = ['16x9', '1920x960', '1080x540', '720x360', '360x180'];
 
 const getImage = (folder, name, ext) => require(`../images/${folder}/${name ? name : folder}.${ext}`);
 const getSources = (name, ext, sizes) => sizes.map(size => require(`../images/${name}/${name}_${size}.${ext}`));

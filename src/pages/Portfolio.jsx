@@ -10,7 +10,7 @@ import Dropdown from '../components/Dropdown';
 const Gallery = styled.section`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-evenly; 
   align-items: center;
 
   @media screen and (min-width: 960px) {
@@ -20,11 +20,17 @@ const Gallery = styled.section`
 `;
 
 const SelectorView = styled.div`
-  width: 100%;
+  width: 95%;
   display: flex;
   flex-direction: column;
-
+  
   @media screen and (min-width: 960px) {
+    align-items: center;
+    max-width: 150px;
+  }
+
+  @media screen and (min-width: 2200px) {
+    align-items: inherit;
     max-width: 20%;
   }
 `;
@@ -35,15 +41,27 @@ const Thumbnails = styled.div`
   align-items: center;
   flex-wrap: nowrap;
   overflow-x auto;
-  overflow-y: auto;
+  // overflow-y: auto;
+
   height: 100px;
+  border: 10px inset #c0b283;
+  box-sizing: border-box;
+  padding: 1em;
+  border-radius: 20px;
+  box-shadow: 3px 3px 5px 1px #373737, 5px 10px 50px 10px #dcd0c0 inset;
   
   @media screen and (min-width: 960px) {
     height: 80vh;
-    display: block;
+    // display: block;
+    flex-direction: column;
     // flex-wrap: wrap;
     // align-items: flex-start;
-    overflow-x: auto;
+    // overflow-x: auto;
+    overflow-y: auto;
+  }
+
+  @media screen and (min-width: 2200px) {
+    flex-wrap: wrap;
   }
 `
 
@@ -65,6 +83,7 @@ const MainView = styled.div`
 
   @media screen and (min-width: 960px) {
     max-width: 75%;
+    align-self: center;
   }
 `;
 
