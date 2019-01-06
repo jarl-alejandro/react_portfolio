@@ -276,7 +276,7 @@ export default class ElevatorPitch extends Component {
    * Control for starting the animation
    */
   startAnimation = async() => {
-    this.write = await this.delay(this.cycleAdWords, 1, 2000);
+    this.write = await this.delay(this.cycleAdWords, 1, 1000);
     // this.cycleAdWords();
   }
 
@@ -307,11 +307,11 @@ export default class ElevatorPitch extends Component {
 
   //#region lifecycle
   componentDidMount() {
-    const { done } = this.state;
+    // const { done } = this.state;
 
-    if (!done) {
-      this.startAnimation();
-    }
+    // if (!done) {
+    //   // this.startAnimation();
+    // }
   }
 
   componentWillUnmount = () => {
@@ -326,7 +326,7 @@ export default class ElevatorPitch extends Component {
       <div id='hero' className='uk-inline'>
 
         {/* Responsive hero image */}
-        <picture>
+        <picture onLoad={this.startAnimation}>
           <source media='(min-aspect-ratio: 16/10)' srcSet={computerUW} />
           <source media='(max-aspect-ratio: 16/10) and (min-width: 1081px)' srcSet={computer} />
           <source media='(max-aspect-ratio: 16/10) and (max-width: 1080px) and (min-width: 721px)' srcSet={computer1080} />
