@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
+import posed, { PoseGroup } from 'react-pose';
 import Page from '../templates/Page';
 import projects from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
@@ -90,6 +91,30 @@ const MainView = styled.div`
 
 //#endregion
 
+//#region posed_components
+const Project = posed.div({
+  initial: {
+    opacity: 0,
+    rotateX: 360
+  },
+  enter: {
+    opacity: 1,
+    rotateX: 0,
+    transition: {
+      duration: 1000
+    }
+  },
+  exit: {
+    opacity: 0,
+    rotateX: 360,
+    transition: {
+      duration: 500
+    }
+  }
+})
+
+//#endregion
+
 export default class extends Component {
   constructor(props) {
     super(props)
@@ -100,6 +125,8 @@ export default class extends Component {
       onMain: null                // Project detail controller
     }
   }
+
+  //#region getters/handlers
 
   /**
    * Handler function for dropdown menu
@@ -125,11 +152,29 @@ export default class extends Component {
    * Used for setting the project to be displayed in detail area
    * @param {Object}  onMain  The project object to render details
    */
-  getMainImage = (onMain) => {
+  getProject = (onMain) => {
     this.setState({ onMain });  // Set the project to main view
   }
 
-  render = () => {
+  /**
+   * Gets the component to render in the MainView
+   * @param {Object} onMain Project to search for
+   * @param {Array} _projects List of projects to search
+   * @returns {Object} Component to render; selected or default
+   */
+  getMain = (onMain, _projects) => {
+    const display = _projects.filter(project => project === onMain)
+      .map(project =>
+        <Project key={project.name}>
+          <ProjectCard {...project} />
+        </Project>);
+    
+    return display.length !== 0 ? display : <Project key='default'><ProjectCard {..._projects[0]}/></Project>
+  }
+
+  //#endregion
+
+  render() {
 
     // Destructure the state for use
     const { filteredProjects, _projects, onMain } = this.state;
@@ -165,7 +210,7 @@ export default class extends Component {
                         key={project.name}
                         data-src={project.thumbnail ? project.thumbnail : project.image}
                         alt={project.name}
-                        onClick={_ => this.getMainImage(project)}
+                        onClick={_ => this.getProject(project)}
                         data-uk-img
                         width='50'
                         height='50'
@@ -177,15 +222,12 @@ export default class extends Component {
 
           {/* Project view window */}
           <MainView>
-            <div>
-              {
-                // Is project selected
-                onMain
-                  ? <ProjectCard {...onMain} />       // Selected project
-                  : <ProjectCard {...projects[0]} />  // Default: First listed project
-              }
-            </div>
-
+            {
+              // Project selection animation
+              <PoseGroup preEnterPose='initial'>
+                {this.getMain(onMain, _projects)}
+              </PoseGroup>
+            }
           </MainView>
         </Gallery>
       </Page>
