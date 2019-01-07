@@ -83,9 +83,7 @@ export default (props) => {
 
   const getContent = (el, custom) => custom ? custom : el === 'article' ? 'body' : el;
 
-  const Tag = styled.div.attrs({
-    href: ({href}) => console.log(href)
-  })`
+  const Tag = styled.div`
 
     ${tagMixin}
     ${({ as }) => getMixin(as)}
