@@ -63,19 +63,7 @@ export default () => {
 
   //#region styled_components
 
-  const Items = styled.div`
-    height: 100%;
-    display: flex;
-    align-items: center;
-    height: 3em;
-    `
-
-  const Anchor = styled.a`
-    padding: 2px;
-    `;
-
   const Icon = styled.span`
-    // color: white;
     transition: transform 500ms linear 500ms;
 
     &:hover {
@@ -91,11 +79,27 @@ export default () => {
   //#endregion
 
   return (
-    <Items>
+    <div
+      style={{
+        height: '100%',
+        display: 'flex',
+        alignItems: 'center',
+        height: '3em'
+      }}
+    >
       {sites.map(([key, username]) => {
         const { href, icon } = social[key];
-        return (<Anchor key={key} href={`${href}${username}`}><Icon data-uk-icon={icon}></Icon></Anchor>)
+        return (
+          <Icon
+            style={{ padding: 2 }}
+            key={key}
+            href={`${href}${username}`}
+            data-uk-icon={icon}
+            aria-label={key}
+          >
+          </Icon>
+        )
       })}
-    </Items>
+    </div>
   )
 }
