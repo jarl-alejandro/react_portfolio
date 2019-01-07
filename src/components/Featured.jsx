@@ -186,8 +186,8 @@ export default ({ projects }) => {
             </Carousel>
 
             {/* Slideshow Nav */}
-            <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous'></SlideNav>
-            <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next'></SlideNav>
+            <SlideNav direction='previous' className='uk-position-center-left uk-position-small' data-uk-icon='icon: chevron-left; ratio: 3' data-uk-slideshow-item='previous' aria-label='previous'></SlideNav>
+            <SlideNav direction='next' className='uk-position-center-right uk-position-small' data-uk-icon='icon: chevron-right; ratio: 3' data-uk-slideshow-item='next' aria-label='next'></SlideNav>
           </div>
 
           {/* Dotnav navigation */}

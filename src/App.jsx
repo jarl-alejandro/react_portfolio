@@ -99,6 +99,10 @@ class App extends Component {
     const uikit = require('uikit');
     const icons = require('uikit/dist/js/uikit-icons');
     uikit.use(icons);
+
+    const dotNavList = document.querySelectorAll('.uk-dotnav > li');
+    if (dotNavList)
+      dotNavList.forEach((item, i) => item.querySelector('a').setAttribute('aria-label', `Slideshow item ${i + 1} selector`));
   }
 
   render() {
