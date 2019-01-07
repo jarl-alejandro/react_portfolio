@@ -10,9 +10,11 @@ export default ({ tags, handleChange }) => (
       onChange={handleChange}
       defaultValue='All'
       className='uk-select'
+      aria-labelledby='select-label'
     >
       {/* Default: All projects visible */}
-      <option value='' >All</option>
+      <option id='select-label' disabled>Filter by tech used..</option>
+      <option value=''>All</option>
 
       {
         // Options: List of skills and technologies used
