@@ -51,8 +51,8 @@ export default class ElevatorPitch extends Component {
     // Extract values from the props
     const { pitch: { adLibs } } = props;
     const currentAdLib = adLibs[0];
-    const currentLead = currentAdLib.lead;
-    const currentAdWord = currentAdLib.ads[0];
+    const currentLead = ''//currentAdLib.lead;
+    const currentAdWord = ''//currentAdLib.ads[0];
 
     this.state = {
       currentAdLib,           // Entire phrase group
@@ -275,8 +275,13 @@ export default class ElevatorPitch extends Component {
   /**
    * Control for starting the animation
    */
-  startAnimation = async() => {
-    this.write = await this.delay(this.cycleAdWords, 1, 1000);
+  startAnimation = () => {
+    const currentLead = this.state.currentAdLib.lead;
+    const currentAdWord = this.state.currentAdLib.ads[0];
+
+    this.setState({ currentLead, currentAdWord }, async() => {
+      this.write = await this.delay(this.cycleAdWords, 1, 1000);
+    })
     // this.cycleAdWords();
   }
 
