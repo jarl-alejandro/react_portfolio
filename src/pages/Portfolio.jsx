@@ -5,7 +5,6 @@ import Page from '../templates/Page';
 import projects from '../data/projects';
 import ProjectCard from '../components/ProjectCard';
 import Dropdown from '../components/Dropdown';
-import Element from '../components/Element';
 
 //#region styled_components
 

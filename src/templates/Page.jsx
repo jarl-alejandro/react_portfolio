@@ -13,7 +13,7 @@ const Section = styled.section`
 `;
 
 export default ({ children, title, scroll, home }) => (
-  <Section scroll={scroll} home={home}>
+  <Section home={home}>
       {title && <h1 className='uk-heading-line uk-text-center'><span>{title}</span></h1>}
       {children}
   </Section>

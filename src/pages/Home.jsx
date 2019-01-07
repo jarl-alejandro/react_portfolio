@@ -7,7 +7,7 @@ import projects from '../data/projects';
 import Element from '../components/Element';
 
 export default () => (
-  <Page home scroll title="Hi, I'm Rodrick" >
+  <Page home title="Hi, I'm Rodrick" >
     {/* Subtitle */}
 
     <Element custom='body'>

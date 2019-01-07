@@ -3,7 +3,7 @@ import Page from '../templates/Page';
 import Element from '../components/Element';
 
 export default () => (
-  <Page title='About Me' scroll>
+  <Page title='About Me'>
 
     <Element custom='body'>
 

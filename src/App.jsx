@@ -3,7 +3,7 @@ import posed, { PoseGroup } from 'react-pose';
 import { Router, Location } from '@reach/router';
 import { Helmet } from 'react-helmet';
 import 'uikit/dist/css/uikit.min.css';
-import '@fortawesome/fontawesome-free/css/all.css'
+// import '@fortawesome/fontawesome-free/css/all.css'
 
 // Component imports
 import Layout from './templates/Layout';

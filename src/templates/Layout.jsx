@@ -5,7 +5,6 @@ import Header from '../components/Header';
 //#region styled_components
 const Main = styled.main`
   position: absolute;
-  // background: grey;
   width: 100%;
   height: 100%;
   transition: all 250ms;
@@ -18,17 +17,11 @@ const Main = styled.main`
   }
 `;
 
-const Background = styled.div`
-  // width: 100vw;
-  // height: 100vh;
-  // background: grey;
-`;
-
 //#endregion
 
 export default ({ children }) => (
   // App backdrop
-  <Background>
+  <>
 
     {/* App Header/Navbar */}
     <Header />
@@ -37,5 +30,5 @@ export default ({ children }) => (
     <Main>
       {children}
     </Main>
-  </Background>
+  </>
 )
