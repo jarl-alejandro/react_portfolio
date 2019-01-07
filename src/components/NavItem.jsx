@@ -3,7 +3,6 @@ import {Link} from '@reach/router'
 import styled from 'styled-components';
 
 export default ({ path }) => {
-
   const _path = path === '/' ? 'home' : path; // Check if path is root
   const linkName = _path.replace(/\//g, '');  // Clean up pathname
 
@@ -16,7 +15,6 @@ export default ({ path }) => {
   }
 
   const Icon = styled.span`
-    // color: white;
     font-family: 'Fredericka the Great', cursive;
     box-sizing: border-box;
     text-align: center;
@@ -46,7 +44,7 @@ export default ({ path }) => {
       
       &:after {
         opacity: 1;
-        transition: opacity 500ms ease-out;
+        transition: opacity 300ms ease-out;
       }
     }
 
@@ -60,7 +58,7 @@ export default ({ path }) => {
 
   return (
     <Link to={path}>
-      <Icon linkName={linkName.toUpperCase()} data-uk-icon={icons[linkName]}></Icon>
+      <Icon linkName={linkName.toUpperCase()} data-uk-icon={icons[linkName]} aria-label={linkName}></Icon>
     </Link>
   )
 }

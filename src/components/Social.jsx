@@ -84,7 +84,6 @@ export default () => {
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        height: '3em'
       }}
     >
       {sites.map(([key, username]) => {
