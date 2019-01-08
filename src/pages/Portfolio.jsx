@@ -165,7 +165,6 @@ export default class extends Component {
    * @returns {Object} Default project card to display
    */
   getDefault = (_projects) => {
-    this.setState({ onMain: _projects[0] });
     return (
       <Project key='default'><ProjectCard {..._projects[0]} /></Project>
     );
@@ -188,6 +187,10 @@ export default class extends Component {
   }
 
   //#endregion
+
+  componentDidMount() {
+    this.setState(state => ({onMain: state._projects[0]}))
+  }
 
   render() {
 
