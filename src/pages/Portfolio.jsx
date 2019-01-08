@@ -183,13 +183,15 @@ export default class extends Component {
           <ProjectCard {...project} />
         </Project>);
 
-    return display.length !== 0 ? display : this.getDefault(_projects);
+    return display;
   }
 
   //#endregion
 
   componentDidMount() {
-    this.setState(state => ({onMain: state._projects[0]}))
+    window.onload = () => {
+      this.setState(state => ({onMain: state._projects[0]}))
+    }
   }
 
   render() {
