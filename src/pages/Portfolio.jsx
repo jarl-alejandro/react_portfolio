@@ -66,7 +66,9 @@ const Thumbnail = styled.img`
 width: 50px;
 height: 50px;
 margin: 1em;
-border-radius: 10%;
+border-radius: ${({project, active}) => project === active ? '100%' : '10%'};
+box-shadow: ${({ project, active }) => project === active ? '0 0 10px 2px darkred' : '0 0 0 0 transparent'}
+transition: border-radius ease-in 500ms, box-shadow ease-in 500ms;
 
 @media screen and (min-width: 960px) {
   width: 100px;
@@ -215,6 +217,8 @@ export default class extends Component {
                           data-uk-img
                           width='50'
                           height='50'
+                          project={project}
+                          active={onMain}
                         />
                     )
                 }
