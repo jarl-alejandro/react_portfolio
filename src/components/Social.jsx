@@ -63,7 +63,7 @@ export default () => {
 
   //#region styled_components
 
-  const Icon = styled.span`
+  const Icon = styled.a`
     transition: transform 500ms linear 500ms;
 
     &:hover {
