@@ -189,9 +189,7 @@ export default class extends Component {
   //#endregion
 
   componentDidMount() {
-    window.onload = () => {
       this.setState(state => ({onMain: state._projects[0]}))
-    }
   }
 
   render() {
