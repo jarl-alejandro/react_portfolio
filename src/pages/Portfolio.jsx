@@ -160,6 +160,18 @@ export default class extends Component {
   }
 
   /**
+   * Sets/Gets the default project to be displayed on Main View
+   * @param {Array} _projects List of projects to get default
+   * @returns {Object} Default project card to display
+   */
+  getDefault = (_projects) => {
+    this.setState({ onMain: _projects[0] });
+    return (
+      <Project key='default'><ProjectCard {..._projects[0]} /></Project>
+    );
+  }
+
+  /**
    * Gets the component to render in the MainView
    * @param {Object} onMain Project to search for
    * @param {Array} _projects List of projects to search
@@ -172,7 +184,7 @@ export default class extends Component {
           <ProjectCard {...project} />
         </Project>);
 
-    return display.length !== 0 ? display : <Project key='default'><ProjectCard {..._projects[0]} /></Project>
+    return display.length !== 0 ? display : this.getDefault(_projects);
   }
 
   //#endregion
