@@ -102,7 +102,7 @@ class App extends Component {
 
   render() {
     return (
-      // SAP framing
+      // SPA framing
       <Layout>
 
         {/* Transitional router */}
